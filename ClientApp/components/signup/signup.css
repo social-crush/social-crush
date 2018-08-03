@@ -1,0 +1,92 @@
+
+.in-container-right h2 .stronge {
+    font-size: 34px;
+}
+.in-container-right input[type="text"],
+.in-container-right input[type="email"],
+.in-container-right input[type="password"]{
+	margin-bottom: 15px;
+}
+
+.in-container-right .input-r {
+	display: flex;
+	justify-content: space-between;
+}
+
+.in-container-right .input-r .dn { 
+	margin-right: 10px;
+}
+.in-container-right .input-r .nn { 
+	margin-right: 20px;
+}
+.in-container-right .sexo{
+    display: flex;
+}
+
+.in-container-right .datecalendario{
+	display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.in-container-right .datecalendario .dada{
+    width: 70%;
+}
+.in-container-right .datecalendario input[type="text"]{
+}
+.in-container-right .datecalendario .genero{
+    height: 30px;
+    /* background: #028090;  */
+    /* background: #F45B69; */
+    border-radius: 5px;
+}
+.in-container-right .datecalendario .genero .sexo{
+    padding: 0px;
+    width: 100px;
+    font-family: "AbeeZee";
+    background-color: rgba(0, 0, 0, 0);
+    font-size: 19px;
+    height: 30px;
+    border: solid 0px rgba(0, 0, 0, 0);
+    /* background-color:#028090 ; */
+}
+/* .in-container-right .datecalendario .genero .sexo .opciones:hover{
+    cursor: pointer;
+} */
+/* .in-container-right .datecalendario .genero .sexo select,option .opciones{
+     background-color:#028090 ;
+} */
+.in-container-right .datecalendario .genero .sexo:focus{
+    /* background-color: #18ab9d; */
+    outline: 0px;
+    cursor: pointer;
+   
+}
+.in-container-right .datecalendario .genero .sexo option:focus{
+      /* background: #18ab9d; */
+}
+
+/*  ----------------------------    */
+
+
+
+
+
+@media screen and (max-width: 535px) {
+    .in-container-right .input-r {
+       display: flex;
+       flex-direction: column;
+   }
+   .in-container-right .datecalendario{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+    }
+    .in-container-right .datecalendario .genero{
+        width: 50%;
+        margin: auto;
+    }
+}
+
+#datepicker {
+    overflow: hidden;
+}

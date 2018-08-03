@@ -1,0 +1,154 @@
+.c-contacts{
+    margin-top: 70px;
+    display: flex; 
+}
+.c-contacts .persons {
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 300px;
+    height: 590px;
+    border-right: solid 1px rgba(0, 0, 0, .125);
+}
+.c-contacts .persons .buscador{
+    padding: 10px;
+}
+.c-contacts .persons .buscador input[type="text"]{
+    height: 35px;
+}
+.c-contacts .persons .friend a{
+    display: flex;
+    align-items: center;
+    margin-bottom: 7px;
+    font-family: "AbeeZee";
+    padding-left: 5px;
+}
+.c-contacts .persons .friend a:hover{
+    text-decoration: none;
+}
+.c-contacts .persons .friend .persons-nombres {
+    max-width: 160px;
+}
+.c-contacts .persons .friend .persons-nombres p {
+    margin-bottom: 0px;
+    text-overflow:ellipsis;
+    white-space:nowrap; 
+    overflow:hidden; 
+}
+.c-contacts .persons .friend:hover{
+    cursor: pointer;
+}
+.c-contacts .persons .persons-imagen img{
+    width: 60px;
+    height: 60px;
+    border-radius: 50px;
+    margin-right: 5px;
+}
+
+/* ESTILOS CHAT UNIVERSAL */
+.c-contacts .conversacion { width: 100%; }
+.c-contacts .conversacion .chat-users{
+    height: 500px;
+    font-family: "AbeeZee";
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+.c-contacts .conversacion .chat-users .list-users{
+    list-style: none;
+    margin: 0;
+    padding: 5px; 
+}
+.c-contacts .conversacion .chat-users .list-users .talk-persons{
+    list-style: none;
+    padding:0px;
+}
+.c-contacts .conversacion .chat-users .list-users .talk-persons .chat-img .img-p{
+    margin-right: 8px;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+.c-contacts .conversacion .chat-users .list-users .talk-persons .space{
+    margin-bottom: 8px;
+}
+
+.c-contacts .conversacion .chat-users .list-users .cont-u{
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+}
+/* .c-contacts .conversacion .chat-users .list-users .cont-u .img-p{
+    margin-right: 8px;
+    width: 85px;
+    border-radius: 50%;
+} */
+.c-contacts .conversacion .chat-users .list-users .cont-u .chat-body p { margin-bottom: 0px; }
+.c-contacts .conversacion .chat-users .list-users .cont-u .chat-body .info-person p{
+    margin-bottom: 0px;
+    
+}
+.c-contacts .conversacion .formu{ 
+    display: flex;
+}
+.c-contacts .conversacion .formu-p .formu .text-c .text-camp{
+    font-family: "AbeeZee";
+    margin-bottom: 0px;
+    resize: none;
+    padding: 10px;
+    margin: 0px;
+    box-sizing: border-box;
+    border: 0px solid #ccc;
+    border-top: 1px solid rgba(204, 204, 204, 0.568);
+    border-right: 1px solid rgba(204, 204, 204, 0.568);
+    border-left: 1px solid rgba(204, 204, 204, 0.568);
+    /* border-color: Transparent; */
+    overflow-x: hidden;
+    overflow-y: auto;
+    outline: none;
+    height: 70px;
+    max-height: 70px;
+    width: 100%;
+}
+.c-contacts .conversacion .formu-p .formu .ctn{
+   margin: auto;
+}
+.c-contacts .conversacion .formu-p .formu .text-c{
+    width: 90%;
+    margin-bottom: 0px;
+}
+.c-contacts .conversacion .formu-p .formu .ctn input[type="submit"]{
+    font-family: "AbeeZee";
+    font-size: 20px;
+    border-radius: 5px;
+    padding: 22px;
+    color: #fff;
+    border: 1px solid transparent;
+    background-color: #5bc0de;
+    text-decoration: none;
+}
+.c-contacts .conversacion .formu-p .formu .ctn input[type="submit"]:hover{
+    color: #fff;
+	background-color: #31b0d5;
+	border-color: #269abc;
+}
+.c-contacts .conversacion .formu-p .formu .ctn input[type="submit"]:focus{
+    color: #fff;
+	background-color: #31b0d5;
+	border-color: #1b6d85;
+}
+.c-contacts .conversacion .formu-p .formu .ctn input[type="submit"]:active{
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+}
+
+
+.c-contacts .conversacion .formu-p{
+    width: 100%;
+}
+
+
+.pull-right {
+    float: right;
+}
+.pull-left {
+    float: left;
+}

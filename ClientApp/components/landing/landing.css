@@ -1,0 +1,217 @@
+body {
+	width: 100vw;
+	height: 100%;
+    margin: 0 auto;
+    padding: 0px;
+	display: flex;
+  	/* justify-content: center; */
+	align-items: center;
+    font-family: "Ubuntu";
+	/* background-image: url('../../../public/img/sun2.jpg'); */
+	background-size: 100vw 100vh;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+}
+
+.cont {
+    width: 100vw;
+}
+
+.Landing {
+	display: flex;
+	flex-direction: row;
+	width: 70%;
+	height: 80vh;
+	background-color: rgba(0, 0, 0, 0.4);
+	margin: 0 auto;
+	border-radius: 8px;
+	overflow: hidden;
+}
+
+.container-right {
+	width: 60%;
+	padding: 15px;
+	box-sizing: border-box;
+	background-color: rgba(255, 255, 255, 0.95);
+	border-top-right-radius: 8px;
+	-moz-border-radius-topright: 8px;
+	border-bottom-right-radius: 8px;
+	-moz-border-radius-bottomright: 8px;
+	display: flex;
+  	justify-content: center;
+	align-items: center;
+}
+
+/* -----ESTILOS RESPONSIVE ----- */
+@media screen and (max-width: 1000px){
+	.Landing {
+		width: 80%;
+	}
+}
+
+@media screen and (max-width: 730px){
+	.Landing{
+		height: auto;
+	}
+    .container-right {
+        width: 100%;
+        border-top-left-radius: 8px;
+        -moz-border-radius-topleft: 8px;
+
+        border-bottom-left-radius: 8px;
+        -moz-border-radius-bottomleft: 8px;
+    }
+}
+
+@media screen and (max-width: 450px){
+	.Landing{
+		width: 100%;
+		height: 100%;
+		border-radius: 0px;
+	}
+	body{
+		background-image: none;
+	}
+	.container-right {
+		border-radius: 0px;
+		background: #ECE9E6;  /* fallback for old browsers */
+		background: -webkit-linear-gradient(to bottom, #FFFFFF, #ECE9E6);  /* Chrome 10-25, Safari 5.1-6 */
+		background: linear-gradient(to bottom, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */	
+	}
+}
+
+
+
+
+
+
+
+
+
+.in-container-right {
+	width: 85%;
+	height: 90%;
+	margin: 0 auto;
+	border-radius: 3px;
+}
+
+.in-container-right h2 {
+	margin: 0 auto;
+    font-family: "Abel";
+	font-weight: 400;
+	color: rgba(247, 1, 76, 0.8);
+    font-size: 26px;
+	text-decoration: none;
+	/* margin-bottom: 50px; */
+}
+
+.in-container-right h2 a {
+	color: rgba(247, 1, 76, 0.8);
+    text-decoration: none;
+    text-decoration-style: unset;
+}
+
+/* -----ESTILOS BOTONOES ----- */
+.in-container-right .boton a {
+	width: 100%;
+	text-decoration: none;
+	text-decoration-style: none;
+	outline: none;
+}
+.in-container-right .boton .btn-iniciar-sesion{
+	font-family: "AbeeZee";
+	font-size: 16px;
+	border-radius: 20px;
+	border: none;
+	border: 1px solid transparent;
+	background-color: #5bc0de;
+	border-color: #46b8da;	
+	padding: 8px 0; 
+	color: #fff;
+	width: 50%;
+}
+.in-container-right .boton .btn-iniciar-sesion:focus {
+	color: #fff;
+	background-color: #31b0d5;
+	border-color: #1b6d85;
+}
+.in-container-right .boton .btn-iniciar-sesion:hover {
+	color: #fff;
+	background-color: #31b0d5;
+	border-color: #269abc;
+}
+.in-container-right .boton .btn-iniciar-sesion:active{
+	box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+}
+.in-container-right .boton .btn2{
+	font-family: "AbeeZee";
+	font-size: 16px;
+	border-radius: 20px;
+	border: none;
+	border: 1px solid transparent;
+	background: #2BBBAD;
+	padding: 8px  0px;
+	color: #fff;
+	width: 50%;
+}
+.in-container-right .boton .btn2:hover{
+	color: #fff;
+	background-color: #18ab9d;
+}
+.in-container-right .boton .btn2:active{
+	box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+}
+.in-container-right .boton .btn-registro{
+	font-family: "AbeeZee";
+	font-size: 14px;
+	border-radius: 20px;
+	border: none;
+	border: 1px solid transparent;
+	padding: 8px 0px;
+	background-color: #5bc0de;
+	border-color: #46b8da;	
+	color: #fff;
+	width: 50%;
+}
+.in-container-right .boton .btn-registro:focus{
+	color: #fff;
+	background-color: #31b0d5;
+	border-color: #1b6d85;
+}
+.in-container-right .boton .btn-registro:hover{
+	color: #fff;
+	background-color: #31b0d5;
+	border-color: #269abc;
+}
+.in-container-right .boton .btn-registro:active{
+	box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+}
+.in-container-right .boton .btn2:hover{
+	color: #fff;
+}
+
+/* -----ESTILOS FORMULARIO ----- */
+
+.in-container-right input[type="text"],
+.in-container-right input[type="email"],
+.in-container-right input[type="password"] {
+	margin-bottom: 25px;
+}
+
+.in-container-right .boton {
+	display: flex;
+	justify-content: center; 
+	margin-bottom:8px; 
+}
+
+@media screen and (max-width: 450px) {
+	.in-container-right .boton .btn-iniciar-sesion {
+		min-width: 150px;
+	}
+	.in-container-right .boton .btn2 {
+		min-width: 150px;
+	}
+}

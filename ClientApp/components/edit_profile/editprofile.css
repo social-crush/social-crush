@@ -1,0 +1,203 @@
+/* --------- ESTILOS VISTA CONFIGURACION ------------- */
+.EditProfile {
+    width: 100vw;
+}
+.configuracion{ 
+    overflow: hidden;
+    margin: auto;
+    margin-top: 120px;
+    width: 800px;
+    border: solid 1px rgba(0, 0, 0, 0.12);
+    border-radius: 3px;
+    box-sizing: border-box;
+    box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 1);
+    margin-bottom: 30px;
+}
+/* .opciones{
+    display: flex;
+}
+.opciones .opcion1 {
+    width: 50%;
+}
+.opciones .opcion1 ul{
+ text-align: center;
+ list-style: none;
+ margin-bottom: 0px;
+ padding-left: 0px;
+}
+.opciones .opcion1 li a{
+    display: block;
+    padding: 15px;
+    font-size: 18px;
+    color: #0D3B66;
+    font-family: "AbeeZee";
+    text-decoration: none;
+} */
+.configuracion .nombre-usuario p{
+    text-align: center;
+    font-size: 26px;
+    font-family: "AbeeZee";
+    margin-top: 20px;
+    margin-bottom: 0px;
+}
+
+.configuracion .cambiar-info{
+    padding-right: 30px;
+    padding-left: 30px;
+    padding-top: 20px;
+}
+
+.configuracion .cambiar-info .div-foto{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 25px;
+}
+.configuracion .cambiar-info .div-foto .foto-perfil {
+    width: 100px;
+    height: 100px;
+    margin-right: 10px;
+}
+.configuracion .cambiar-info .div-foto .foto-perfil img {
+    min-width: 100px;
+    min-height: 100px;
+    max-width: 100px;
+    max-height: 100px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+.configuracion .cambiar-info .div-foto .editar-foto p {
+    margin: 0;
+}
+.configuracion .cambiar-info .div-foto .editar-foto .file-input{
+    visibility: hidden;
+    width: 20px;
+}
+.configuracion .cambiar-info .div-foto .editar-foto .file-input::before{
+  background-color: rgba(0,0,0,0);
+  border: solid 1px rgba(0,0,0,0);
+  content: 'Editar foto de perfil';
+  display: inline-block;
+  padding: 5px 0px;
+  outline: none;
+  cursor: pointer;
+  font-size: 16px;
+  visibility: visible;
+  position: absolute;
+  color: #1D84B5;
+}
+
+.configuracion .cambiar-info .div-foto .info{
+    margin-right: 20px;
+    font-family: "AbeeZee";
+    width: 15%;
+}
+.configuracion .cambiar-info .div-foto .form-control{
+    padding: 5px;
+}
+.configuracion .cambiar-info .div-foto .form-control:focus{
+    border-color: #ccc;
+    /* box-shadow: 0 0 0 0.1rem rgba(6, 81, 243, 0.3); */
+    box-shadow: 0 0 0 0.1rem rgba(19, 245, 139, 0.3);
+}
+.configuracion .cambiar-info .div-foto .entrada{
+    width: 60%;
+}
+.configuracion .confirmacion .acciones{
+    display: flex;
+    justify-content: space-between;
+    width: 70%;
+}
+.configuracion .confirmacion{ 
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+.configuracion .confirmacion .btn{
+    font-family: "AbeeZee";
+    color: #fff;
+    background: #2BBBAD;
+    border: none;
+    border-radius: 7px;
+}
+.configuracion .confirmacion .btn-contra{
+    font-family: "AbeeZee";
+    color: #fff;
+    background-color: #3E92CC;
+    border: none;
+    border-radius: 7px;
+    padding: 6px 12px;
+}
+.configuracion .confirmacion .btn:focus{
+    box-shadow: 0 0 0 0.2rem rgba(255, 255, 255);
+}
+.configuracion .confirmacion .btn-contra:focus{
+    box-shadow: 0 0 0 0.2rem rgba(255, 255, 255);
+}
+.configuracion .confirmacion btn:hover{
+    color: #fff;
+	background-color: #18ab9d;
+}
+.configuracion .confirmacion .btn-contra:hover{
+    color: #fff;
+    background: #1D84B5;
+    cursor: pointer;
+}
+.configuracion .confirmacion .btn:active{
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+}
+/* -----RESPONSIVE PARA LA VISTA CONFIGURACION ------ */
+@media screen and (max-width: 800px){
+    .configuracion{
+        width: auto;
+        border-right: 0px;
+        border-left: 0px;
+        border-radius: 0px;
+    }
+}
+@media screen and (max-width: 595px){
+    .configuracion .cambiar-info .div-foto .info{
+        margin-right: 15px;
+        font-family: "AbeeZee";
+        width: 20%;
+    }
+    .configuracion .cambiar-info{
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+    
+}
+@media screen and (max-width: 522px){
+    .configuracion .cambiar-info .div-foto{
+        display: flex;
+        flex-direction: column;
+    }
+    .configuracion .cambiar-info .div-foto .info{
+        width: 80%;
+    }
+    .configuracion .cambiar-info .div-foto .entrada{
+        width: 85%;
+    }
+    .configuracion .cambiar-info .div-foto .editar-foto{
+        text-align: center;
+    }
+    .configuracion .confirmacion .acciones{
+        width: 90%; 
+    }
+}
+@media screen and (max-width: 420px){
+    /* .configuracion .confirmacion{
+        padding: 10px;
+    } */
+    .configuracion .confirmacion .acciones{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+   
+}
+
