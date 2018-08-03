@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import firebase from 'firebase';
+// import firebase from 'firebase';
 import _ from 'lodash';
 
 // Assets
 import './chatting.css'; 
 
 // Components
-import Header from '../../components/header/Header';
+import Header from '../header/Header';
 
 class Chatting extends Component{
     constructor(props){
@@ -17,12 +17,15 @@ class Chatting extends Component{
             newData: null
         }
         this.addBootstrap4 = this.addBootstrap4.bind(this);
-        this.addBootstrap4();
         this.handleSubmitMessage = this.handleSubmitMessage.bind(this);
         this.getMonth = this.getMonth.bind(this);
         this.setScrollYtoBottom = this.setScrollYtoBottom.bind(this);
         this.handleSearchChat = this.handleSearchChat.bind(this);
         this.getUsers = this.getUsers.bind(this);
+    }
+
+    componentDidMount() {
+        this.addBootstrap4();
     }
 
     addBootstrap4 = () => {
@@ -39,19 +42,7 @@ class Chatting extends Component{
             var photoUrl = this.props.photoUrl || 'https://firebasestorage.googleapis.com/v0/b/social-crush.appspot.com/o/images%2Fuser_profile%2Fprofile_placeholder.jpg?alt=media&token=7efadeaa-d290-44aa-88aa-ec18a5181cd0';
             var displayName = this.props.displayName || 'Desconocido';
 
-            firebase.database().ref('chat/').push().set({
-                text: textAreaMessage, 
-                photoUrl: photoUrl,
-                displayName: displayName,
-                timestamp: {
-                  day: new Date().getDate(),
-                  month: new Date().getMonth(),
-                  year: new Date().getFullYear(),
-                  minute: new Date().getMinutes(),
-                  hour: new Date().getHours()
-                }
-            }, error => {if(error) console.log(error);});
-            txtAreaMessage.value = '';
+            alert('Handle Submit Message');
 
             // setInterval(this.setScrollYtoBottom(), 30);
             
@@ -61,24 +52,6 @@ class Chatting extends Component{
             console.log('Debes escribir un mensaje para enviarlo');
             alert('Debes escribir un mensaje para enviarlo');
         }
-    }
-
-    componentDidMount() {
-        firebase.database().ref('chat').on('value', snapshot => {
-            var chat = snapshot.val();
-            if(chat) {
-                this.setState({ chat });
-            }
-        });
-      
-        firebase.database().ref('users/').orderByChild('displayName').on('value', snapshot => {
-          var users = snapshot.val();
-          if(users) {
-            this.setState({ users });
-          }
-        });
-
-        // document.getElementById('div-chat-users').scrollTop = 500;
     }
 
     getMonth = (month) => {
@@ -98,6 +71,8 @@ class Chatting extends Component{
         
         if(_.isEmpty(searchUser)) {
             this.setState({ newData: this.state.users });
+            // alert('Handle Search User');
+            console.log(searchUser);
         } else {
             this.getUsers(searchUser);
         }
@@ -109,35 +84,14 @@ class Chatting extends Component{
         if(!_.isEmpty(searchText)) {
             this.setState({ showResult: true });
 
-            firebase.database().ref('/users/').orderByChild('displayName').once('value')
-            .then(snapshot => {
-              this.setState({users: snapshot.val()});
-
-              if(snapshot.val()) {
-                newData = snapshot.val();
-                var users = {};
-                for(var user in newData) {
-                    if(user !== this.state.uid && _.toLower(newData[user].displayName).search(_.toLower(searchText)) !== -1) {
-                        users[user] = newData[user];
-                    }
-                }
-
-                if(Object.entries(users).length !== 0) {
-                    newData = users;
-                } else {
-                    newData = '¡No hay resultados!';
-                }
-                this.setState({ newData });
-
-              } else {
-                newData = '¡No hay resultados!';
-                this.setState({ newData });
-              }
+            
               
-            })
-            .catch(e => {
-              console.log(`Code: ${e.code} Message: ${e.message}`);
-            });
+            // var users = {};
+            //     for(var user in newData) {
+            //         if(user !== this.state.uid && _.toLower(newData[user].displayName).search(_.toLower(searchText)) !== -1) {
+            //             users[user] = newData[user];
+            //         }
+            //     }
         } else {
             newData = '¡No hay resultados!';
             this.setState({ newData });

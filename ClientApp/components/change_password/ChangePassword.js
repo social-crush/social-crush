@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import firebase from 'firebase';
+// import firebase from 'firebase';
 import _ from 'lodash';
 
 // Components
-import Header from '../../components/header/Header';
+import Header from '../header/Header';
 
 import './changepassword.css';
 
@@ -40,25 +40,8 @@ export default class ChangePassword extends Component{
 
         if(!_.isEmpty(current_password)) {
             if(_.isEqual(newer_password, confirm_newer_password)) {
-                var user = firebase.auth().currentUser;
-                const credential = firebase.auth.EmailAuthProvider.credential(
-                    user.email, 
-                    current_password
-                );
 
-                user.reauthenticateWithCredential(credential).then(() => {
-                    user.updatePassword(newer_password).then(() => {
-                        console.log('La contraseña ha sido actualizada con exito');
-                        alert('La contraseña ha sido actualizada con exito'); 
-                        window.location.replace('/edit_profile');
-                    }).catch(error => {
-                        console.log(error);
-                    });
-                }).catch(error => {
-                    console.log(error); // auth/wrong-password // The password is invalid or the user does not have a password.
-                    console.log('La contraseña que haz introducido no es correcta');
-                    alert('La contraseña que haz introducido no es correcta'); 
-                });
+                alert('Handle Submit');
 
             } else {
                 console.log('Las contraseñas no coinciden');

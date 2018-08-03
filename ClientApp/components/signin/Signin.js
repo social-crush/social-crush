@@ -1,13 +1,13 @@
 ﻿import React, { Component } from 'react';
 
-import firebase from 'firebase';
+// import firebase from 'firebase';
 import _ from 'lodash';
 import { Link } from 'react-router-dom';
 
 // Assets
 import './signin.css';
 // import './modalpassword.css';
-import '../../css/signin_signup.css';
+// import '../../css/signin_signup.css';
 
 class Signin extends Component {
     constructor(props) {
@@ -17,7 +17,6 @@ class Signin extends Component {
       this.signInWithEmail = this.signInWithEmail.bind(this);
       this.handleGuest = this.handleGuest.bind(this);
       this.generatePassword = this.generatePassword.bind(this);
-      this.showMessageError = this.showMessageError.bind(this);
     }
 
     generatePassword = () => {
@@ -42,14 +41,9 @@ class Signin extends Component {
       let password = document.getElementById('passwordLogin').value;
       if(!_.isEmpty(_.trim(email))) {
         if(!_.isEmpty(_.trim(password))) {
-          firebase.auth().signInWithEmailAndPassword(email, password)
-          .catch(error => {
-            if(error) {
-              this.showMessageError(error.code, error.message);
-            } else {
-              window.location.replace("/home");
-            }
-          });
+          
+          alert('SigInWithEmail');
+          
         } else {
           console.log('Debe proporcionar su contraseña');
           alert('Debe proporcionar su contraseña');
@@ -61,28 +55,7 @@ class Signin extends Component {
     }
 
     handleGuest = () => {
-      firebase.auth().signOut();
-    }
-
-    showMessageError = (code, text) => {
-      var message = '';
-
-      switch (code) {
-        case "auth/invalid-email":
-          message = 'El correo no es válido';
-          break;
-        case "auth/wrong-password":
-          message = 'La contraseña es incorrecta';
-          break;
-        case "auth/user-not-found":
-          message = 'Este usuario no existe';
-          break;
-        default:
-          message = text;
-          break;
-      }
-      console.log(message);
-      alert(message);
+      // firebase.auth().signOut();
     }
 
     render() {

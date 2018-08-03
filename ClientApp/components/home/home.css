@@ -3,13 +3,8 @@
     color: rgb(247, 1, 76);
     color: #F7014C;
 */
-body {
+.Home {
     width: 100%;
-    height: 100%;
-    margin: 0px;
-    padding: 0px;
-    overflow-x: hidden;
-    background-color: rgba(0, 0, 0, 0.015);
 }
 .container {
     display: flex;

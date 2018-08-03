@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 
 // Components
-import Welcome from '../../components/welcome/Welcome';
+import Welcome from '../welcome/Welcome';
 // eslint-disable-next-line
-import Signin from '../../components/signin/Signin';
+import Signin from '../signin/Signin';
 // eslint-disable-next-line
-import Signup from '../../components/signup/Signup';
+import Signup from '../signup/Signup';
 
 // Assets
 import './landing.css';
@@ -17,6 +17,15 @@ class Landing extends Component {
             isSigninShowen: true
         }
         this.addMaterialize = this.addMaterialize.bind(this);
+    }
+
+    componentDidMount() {
+        this.addMaterialize();
+    }
+
+    componentWillUnmount() {
+        document.body.style.backgroundImage = "";
+        document.querySelector("head > pre").innerHTML = "";
     }
 
     changeView = (event) => {
@@ -37,15 +46,6 @@ class Landing extends Component {
         document.body.style.backgroundImage = `url(img/${this.props.backgroundID || 4}.jpg)`; 
         document.querySelector("head").innerHTML += '<style>body{ height: 100vh; }</style>'; 
         // document.querySelector("head").innerHTML += '<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>'; 
-    }
-
-    componentDidMount() {
-        this.addMaterialize();
-    }
-
-    componentWillUnmount() {
-        document.body.style.backgroundImage = "";
-        document.querySelector("head > pre").innerHTML = "";
     }
 
     render() {

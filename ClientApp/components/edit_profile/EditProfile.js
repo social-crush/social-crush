@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import firebase from 'firebase';
+// import firebase from 'firebase';
 import _ from 'lodash';
 // Components
-import Header from '../../components/header/Header';
+import Header from '../header/Header';
 
 import './editprofile.css';
 
@@ -29,10 +29,8 @@ export default class EditProfile extends Component {
         this.setInputValue = this.setInputValue.bind(this);
     }
 
-    generateDisplayName = (name, lastname) => {
-      name = _.split(name, ' ', 1);
-      lastname = _.split(lastname, ' ', 1);
-      return `${name} ${lastname}`;
+    componentDidMount() {
+        this.addBootstrap4();
     }
 
     componentWillMount() {
@@ -41,28 +39,10 @@ export default class EditProfile extends Component {
         // }
     }
 
-    componentDidMount() {
-        this.addBootstrap4();
-        // var uid = this.state.user.uid;
-        // var uid = window.localStorage.getItem('uid');
-        // if(uid !== null && uid !== '') {
-        //     firebase.database().ref(`/users/${this.state.user.uid}/`).on('value', snapshot => {
-        //         var photoUrl = snapshot.val();
-        //         if(photoUrl) {
-        //             console.log(photoUrl);
-        //             console.log(photoUrl.photoUrl);
-        //         }
-        //     });
-        //     firebase.database().ref(`/users/${this.state.user.uid}/photoUrl`).on('value', snapshot => {
-        //         var photoUrl = snapshot.val();
-        //         if(photoUrl) {
-        //             console.log(photoUrl);
-        //             console.log(photoUrl.photoUrl);
-        //         }
-        //     });
-        // } else {
-        //     console.log('ELSE');
-        // }
+    generateDisplayName = (name, lastname) => {
+      name = _.split(name, ' ', 1);
+      lastname = _.split(lastname, ' ', 1);
+      return `${name} ${lastname}`;
     }
 
     componentWillReceiveProps(nextProps) {
@@ -102,29 +82,7 @@ export default class EditProfile extends Component {
             editProfileEmail = this.state.user.email || '';
         }
 
-        var user = firebase.auth().currentUser;
-        var displayName = this.generateDisplayName(editProfileName, editProfileLastname);
-
-        user.updateProfile({
-            displayName: displayName,
-            email: editProfileEmail 
-        }).then(() => {
-            var ref = firebase.database().ref(`/users/${user.uid}/`)
-            .update({
-                displayName: displayName,
-                name: editProfileName,
-                lastname: editProfileLastname,
-                username: editProfileUsername,
-                email: editProfileEmail
-            });
-            console.log('Información actualizada con éxito');
-            alert('Información actualizada con éxito');
-            window.location.reload();
-        }).catch(error => {
-            console.log(error);
-            console.log('Ocurrió un error al actualizar su información');
-            alert('Ocurrió un error al actualizar su información');
-        });
+        alert('Handle Save Change');
 
                      
     }
@@ -145,28 +103,7 @@ export default class EditProfile extends Component {
                 if(!_.isEmpty(editProfileUsername)) {
                     if(!_.isEmpty(editProfileEmail)) {
 
-                        var user = firebase.auth().currentUser;
-                        var displayName = this.generateDisplayName(editProfileName, editProfileLastname);
-
-                        user.updateProfile({
-                            displayName: displayName,
-                            email: editProfileEmail 
-                        }).then(() => {
-                            var ref = firebase.database().ref(`/users/${user.uid}/`)
-                            .update({
-                                displayName: displayName,
-                                name: editProfileName,
-                                lastname: editProfileLastname,
-                                username: editProfileUsername,
-                                email: editProfileEmail
-                            });
-                            console.log('Información actualizada con éxito');
-                            alert('Información actualizada con éxito');
-                        }).catch(error => {
-                            console.log(error);
-                            console.log('Ocurrió un error al actualizar su información');
-                            alert('Ocurrió un error al actualizar su información');
-                        });
+                        alert('Handle Save Change 2');
 
                     } else {
                         console.log('Debes escribir tu correo');
@@ -191,67 +128,13 @@ export default class EditProfile extends Component {
 
         var uid = this.state.user.uid;
 
-        var storageRef = firebase.storage().ref();
-        var uploadTask = storageRef.child(`images/user_profile/${uid}/${file.name}`).put(file);
-
-        uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, snapshot => {
-            var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            console.log('Upload is ' + progress + '% done');
-            switch (snapshot.state) {
-              case firebase.storage.TaskState.PAUSED:
-                console.log('Upload is paused');
-                break;
-              case firebase.storage.TaskState.RUNNING:
-                console.log('Upload is running');
-                break;
-            }
-          }, error => {
-                if(error) { console.log(error) };
-          }, () => {
-            uploadTask.snapshot.ref.getDownloadURL().then(downloadURL => {
-                console.log(downloadURL);
-                document.getElementById("photoProfile").src = downloadURL;
-
-                var user = firebase.auth().currentUser;
-                user.updateProfile({
-                    photoUrl: downloadURL
-                }).then(() => {
-                    firebase.database().ref(`/users/${uid}/`).update({
-                        photoUrl: downloadURL
-                    });
-                    console.log('Foto de perfil actualizada con éxito');
-                    // alert('Foto de perfil actualizada con éxito');
-
-                }).catch(error => {
-                    console.log(error);
-                    console.log('Ocurrió un error al actualizar su foto de perfil');
-                    alert('Ocurrió un error al actualizar su foto de perfil');
-                });
-
-            });
-          });
+        alert('Handle Update Photo');
+        
         //   this.handleUploadImage(e);
     }
 
     handleUploadImage = (evt) => {
-    //   const files = evt.target.files;
-    //   this.setState({ imageFile: files[0] });
-      
-    //   for (var i = 0, f; f = files[i]; i++) {
-    //     if (!f.type.match('image.*')) {
-    //       continue;
-    //     }
-    
-    //     var reader = new FileReader();
-    
-    //     reader.onload = (function(theFile) {
-    //     return function(e) {
-    //       document.getElementById("foto-perfil").innerHTML = ['<img src="', e.target.result,'" title="', escape(theFile.name), '"/>'].join('');
-    //     };
-    //     })(f);
-    
-    //     reader.readAsDataURL(f);
-    //   }
+        alert('Handle Upload Image');
     }
 
     setInputValue = () => {
@@ -267,12 +150,12 @@ export default class EditProfile extends Component {
     }
 
     render(){ 
-        var displayName = this.state.user.displayName || '';
-        var photoUrl = this.state.user.photoUrl;
-        var name = this.state.user.name || '';
-        var lastname = this.state.user.lastname || '';
-        var username = this.state.user.username || '';
-        var email = this.state.user.email || '';
+        var displayName = this.state.user.displayName || 'Username';
+        var photoUrl = this.state.user.photoUrl || 'https://firebasestorage.googleapis.com/v0/b/social-crush.appspot.com/o/images%2Fuser_profile%2Fprofile_placeholder.jpg?alt=media&token=7efadeaa-d290-44aa-88aa-ec18a5181cd0';
+        var name = this.state.user.name || 'Name';
+        var lastname = this.state.user.lastname || 'Lastname';
+        var username = this.state.user.username || '@Username';
+        var email = this.state.user.email || 'Emal';
         return(
             <div className="EditProfile">
                 <Header />

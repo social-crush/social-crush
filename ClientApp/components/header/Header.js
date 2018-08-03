@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import firebase from 'firebase';
+// import firebase from 'firebase';
 import _ from 'lodash';
-import ResultWidget from '../../components/result_widget/ResultWidget';
-import ProfileWidget from '../../components/profile_widget/ProfileWidget';
+import ResultWidget from '../result_widget/ResultWidget';
+import ProfileWidget from '../profile_widget/ProfileWidget';
 
 // Components
 
@@ -29,29 +29,12 @@ class Header extends Component {
             //     uid: null
             // }
         }
-        this.stateAuth = this.stateAuth.bind(this);
-        this.stateAuth();
         this.handleSearchUser = this.handleSearchUser.bind(this);
         this.obtener = this.obtener.bind(this);
         this.handleOnBur = this.handleOnBur.bind(this);
         this.handleOnFocus = this.handleOnFocus.bind(this);
         this.handleGoToChatting = this.handleGoToChatting.bind(this);
         this.handleGoToProfile = this.handleGoToProfile.bind(this);
-    }
-
-    stateAuth = () => {
-        firebase.auth().onAuthStateChanged(user => {
-            if (user) {
-                this.setState({
-                    isSignedIn: true,
-                    uid: user.uid
-                });
-            } else {
-                this.setState({
-                    isSignedIn: false
-                });
-            }
-        });
     }
 
     handleSearchUser = () => {
@@ -64,35 +47,9 @@ class Header extends Component {
         if(!_.isEmpty(searchText)) {
             this.setState({ showResult: true });
 
-            firebase.database().ref('/users/').orderByChild('displayName').once('value')
-            .then(snapshot => {
-              this.setState({users: snapshot.val()});
-
-              if(snapshot.val()) {
-                newData = snapshot.val();
-                var users = {};
-                for(var user in newData) {
-                    if(user !== this.state.uid && _.toLower(newData[user].displayName).search(_.toLower(searchText)) !== -1) {
-                        users[user] = newData[user];
-                    }
-                }
-
-                if(Object.entries(users).length !== 0) {
-                    newData = users;
-                } else {
-                    newData = '¡No hay resultados!';
-                }
-                this.setState({ newData });
-
-              } else {
-                newData = '¡No hay resultados!';
-                this.setState({ newData });
-              }
-              
-            })
-            .catch(e => {
-              console.log(`Code: ${e.code} Message: ${e.message}`);
-            });
+            // alert('Handle Search User');
+            console.log(searchText);
+            
         } else {
             newData = '¡No hay resultados!';
             this.setState({ newData });
@@ -140,6 +97,8 @@ class Header extends Component {
     } 
 
     render() {
+    var newData = this.state.newData || '¡No hay resultados!';
+
       return (
         <header>
             <nav className="navbar navbar-default nav-content">
@@ -168,7 +127,7 @@ class Header extends Component {
                 </div>
             </nav>
             { this.state.showResult ? (
-                <ResultWidget users={this.state.newData || '¡No hay resultados!'} getUid={this.getUid.bind(this)} /> ) : ( "" ) 
+                <ResultWidget users={newData} getUid={this.getUid.bind(this)} /> ) : ( "" ) 
             }
             {/* <ProfileWidget uid={this.state.uid} /> */}
             {/* { this.state.uid ? <ProfileWidget uid={this.state.uid} /> : ""} */}

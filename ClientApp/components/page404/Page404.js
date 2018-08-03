@@ -3,7 +3,7 @@
 // Assets
 import './page404.css';
 
-import ProfileWidget from '../../components/profile_widget/ProfileWidget';
+import ProfileWidget from '../profile_widget/ProfileWidget';
 
 class Page404 extends Component {
     constructor(props) {

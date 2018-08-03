@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import firebase from  'firebase';
+// import firebase from  'firebase';
 
 // Assets
 import './profilewidget.css';
@@ -24,13 +24,7 @@ class ProfileWidget extends Component {
   componentWillReceiveProps() {
     var uid = this.props.uid;
     if(uid) {
-      firebase.database().ref(`/users/${uid}`).once('value')
-      .then(snapshot => {
-        var user = snapshot.val();
-        if(user) {
-          this.setState({ user });
-        }
-      });
+      
     }
   }
   

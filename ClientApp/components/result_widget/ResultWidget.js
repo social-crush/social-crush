@@ -50,8 +50,10 @@ class ResultWidget extends Component {
       listItems = <li>¡No hay resultados!</li>;
     }
 
+    var setUserDataPost = this.props.setUserDataPost ? "wd-post" : "wd";
+
     return (
-      <div className={this.props.setUserDataPost ? "wd-post" : "wd"}> 
+      <div className={setUserDataPost}> 
         <div className="resultados">
           <div className="cuadrito"></div>
           <div className="personas">

@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import firebase from 'firebase';
+// import firebase from 'firebase';
 import _ from 'lodash';
 
 // importing aos
-import AOS from '../../../node_modules/aos'
+// import AOS from '../../../node_modules/aos';
 
 // Assets
 import './newsfeed.css';
 
-import '../../../node_modules/aos/dist/aos.css'
+// import '../../../node_modules/aos/dist/aos.css';
 
 class Newsfeed extends Component {
     constructor(props) {
@@ -22,6 +22,10 @@ class Newsfeed extends Component {
       this.getMonth = this.getMonth.bind(this);
       this.handleFocusComment = this.handleFocusComment.bind(this);
       this.goToFriend = this.goToFriend.bind(this);
+    }
+
+    componentDidMount() {
+      
     }
 
     addBootstrap4 = () => {
@@ -52,15 +56,9 @@ class Newsfeed extends Component {
               hour: new Date().getHours()
             }
           }
-          var newCommentKey = firebase.database().ref().child(`/users/${fromUid}/posts/${this.props.id}/comments`).push().key;
-          var updates = {};
-    
-          if(this.props.data.isPublic) {
-            updates[`/posts/${this.props.id}/comments/${newCommentKey}`] = commentData;
-          }
-          updates[`/users/${fromUid}/posts/${this.props.id}/comments/${newCommentKey}`] = commentData;
-          updates[`/users/${toUid}/posts-to-me/${this.props.id}/comments/${newCommentKey}`] = commentData;
-          firebase.database().ref().update(updates);
+          
+          alert('CommentData');
+          console.log(commentData);
 
         } else {
           alert('Debes escribir algo para comentar.');
@@ -87,25 +85,7 @@ class Newsfeed extends Component {
         var toUid = this.props.data.toUid; // Para actualizar el comentario en el destinatario
         var fromUid = this.props.data.fromUid; // Para actualizar el comentario en el owner del post
 
-        var postCount = firebase.database().ref(`/users/${fromUid}/posts/${this.props.id}/likes`);
-        postCount.transaction(currentRank => {
-          
-          if(currentRank) {
-            currentRank++;
-          } else {
-            currentRank = 1;
-          }
-
-          var updates = {};
-
-          if(this.props.data.isPublic) {
-            updates[`/posts/${this.props.id}/likes`] = currentRank;
-          }
-          updates[`/users/${toUid}/posts-to-me/${this.props.id}/likes`] = currentRank;
-          firebase.database().ref().update(updates);
-
-          return currentRank;
-        });
+        alert('Handle Like');
 
       } else {
         console.log('Debes iniciar sesión para dar me gusta.');
@@ -117,19 +97,6 @@ class Newsfeed extends Component {
     getMonth = (month) => {
       let meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
       return meses[month];
-    }
-
-    componentDidMount() {
-      var postsRef = firebase.database().ref(`posts/${this.props.id}/comments`);
-      postsRef.on('value', snapshot => {
-        var comments = snapshot.val();
-        if(comments) {
-          this.setState({ comments });
-        }
-      });
-      // AOS.init({
-      //   duration : 500
-      // });
     }
 
     goToFriend = (e) =>{
@@ -145,6 +112,13 @@ class Newsfeed extends Component {
       var photoUrl = this.props.data.isAnonimous == true ? "https://firebasestorage.googleapis.com/v0/b/social-crush.appspot.com/o/images%2Fuser_profile%2Fprofile_placeholder.jpg?alt=media&token=7efadeaa-d290-44aa-88aa-ec18a5181cd0" : this.props.data.fromPhotoUrl;
       var displayName = this.props.data.isAnonimous == true ? "Anónimo" : this.props.data.fromDisplayName;
       var comments = this.state.comments;
+      var day = this.props.data.timestamp.day;
+      var hour = this.props.data.timestamp.hour;
+      var minute = this.props.data.timestamp.minute;
+      var imageUrl = this.props.data.imageUrl;
+      var text = this.props.data.text || "";
+      var id = this.props.id;
+      
       return (
         // <div data-aos="zoom-in">
         <article className="post">
@@ -157,17 +131,17 @@ class Newsfeed extends Component {
             <div className="div-user"> 
               <a href={'#'} onClick={this.goToFriend}>{displayName}</a> {/* Usuario */}
               {/* <p>17 de julio a las 15:19</p> */}
-              <p>{`${this.props.data.timestamp.day} de ${month} a las ${this.props.data.timestamp.hour}:${this.props.data.timestamp.minute}`}</p>
+              <p>{`${day} de ${month} a las ${hour}:${minute}`}</p>
             </div>
           </header>
           <div className=""> {/* Contenido Del Post */}
             <div className="div-text-post">{/* Texto Del Post */}
-              <p>{this.props.data.text || ""}</p>
+              <p>{text}</p>
             </div> 
             {
-              this.props.data.imageUrl ? (
+              imageUrl ? (
                 <div className="div-img-post"> {/* Imagen del Post */}
-                  <img alt={""} className="img-post" src={this.props.data.imageUrl} />
+                  <img alt={""} className="img-post" src={imageUrl} />
                 </div>
               ) : (
                 ""
@@ -202,7 +176,7 @@ class Newsfeed extends Component {
             <div className="div-form-comment">
               <hr className="hl" />
               <form className="form-comment">
-                <textarea id={`textareaComment${this.props.id}`} className="textarea-comment" rows={1} placeholder="Escribe un comentario..." defaultValue={""} /><i onClick={this.handleSendComment} className="material-icons send">send</i> {/* 5 lineas max */}
+                <textarea id={`textareaComment${id}`} className="textarea-comment" rows={1} placeholder="Escribe un comentario..." defaultValue={""} /><i onClick={this.handleSendComment} className="material-icons send">send</i> {/* 5 lineas max */}
                 {/* <button type="submit"><i class="fa fa-arrow-right icon-comment"></i></button> */}
                 {/* <button type="submit"><img alt="" src="img/send.svg" /></button> */}
               </form>

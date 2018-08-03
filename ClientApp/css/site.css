@@ -3,6 +3,21 @@
   white-space:nowrap; 
   overflow:hidden; 
 }
+#react-app {
+    width: 100%;
+    /* height: 100%; */
+}
+.Layout {
+    width: 100%;
+}
+/* body {
+    width: 100vw;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    overflow-x: hidden;
+    background-color: rgba(0, 0, 0, 0.015);
+} */
 
 .main-nav li .glyphicon {
     margin-right: 10px;

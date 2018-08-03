@@ -1,33 +1,29 @@
 import React, { Component } from 'react';
 // import { signInWithGoogle } from '../../functions/firebase-functions';
 
-import firebase from 'firebase';
+// import firebase from 'firebase';
 import _ from 'lodash';
  
 // Assets
 import './signup.css';
-import '../../css/signin_signup.css';
+// import '../../css/signin_signup.css';
 
 class Signup extends Component {
     constructor(props) {
       super(props);
       
       this.noAction = this.noAction.bind(this);
-      this.signInWithGoogle = this.signInWithGoogle.bind(this);
-      this.signUpWithEmail = this.signUpWithEmail.bind(this);
-      this.writeUserData = this.writeUserData.bind(this);
       this.generateUsername = this.generateUsername.bind(this);
       this.generateDisplayName = this.generateDisplayName.bind(this);
       this.calendar = this.calendar.bind(this);
       this.convertGender = this.convertGender.bind(this);
-      this.showMessageError = this.showMessageError.bind(this);
       this.validateForm = this.validateForm.bind(this);
       this.getAge = this.getAge.bind(this);
       this.validateDate = this.validateDate.bind(this);
     }
 
     componentDidMount() {
-      this.calendar();
+      // this.calendar();
     }
 
     changeView = (e) => {
@@ -66,90 +62,6 @@ class Signup extends Component {
       return gender;
     }
 
-    signInWithGoogle = () => {
-      var provider = new firebase.auth.GoogleAuthProvider();
-      // provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
-      // Autenticar con Google
-      firebase.auth().signInWithPopup(provider)
-      .then(res => {
-        // Buscar el usuario en la base de datos
-        firebase.database().ref('/users/' + res.user.uid).once('value')
-        .then(snapshot => {
-          console.log(`Signup.js 78: ${res}`);
-          // Escribir el usuario si no existe
-          if(snapshot.val() === null) {
-            this.writeUserData(res);
-          } else {
-            firebase.database().ref(`/users/${res.user.uid}/`).update({
-              lastSignInTime: res.user.metadata.lastSignInTime || 'null'
-            }, error => { 
-              if(error){ console.log(error); }
-              else{ window.location.replace("/home"); }
-            });
-          }
-          // End Escribir Usurio
-        })
-        .catch(e => {
-          console.log(`Code: ${e.code} Message: ${e.message}`);
-        });
-      })
-      .catch(e => {
-          console.log(`Error! Code: ${e.code} Message: ${e.message}`);
-      });
-    }
-
-    showMessageError = (code, text) => {
-      var message = '';
-
-      switch (code) {
-        case "auth/invalid-email":
-          message = 'El correo no es válido';
-          break;
-        case "auth/wrong-password":
-          message = 'La contraseña es incorrecta';
-          break;
-        case "auth/user-not-found":
-          message = 'Este usuario no existe';
-          break;
-        case "auth/weak-password":
-          message = 'La contraseña debe tener al menos 6 caracteres';
-          break;
-        case "auth/email-already-exists":
-          message = 'Este correo ya existe';
-          break;
-        default:
-          message = `code: ${code} message: ${text}`;
-          break;
-      }
-      console.log(message);
-      alert(message);
-    }
-
-    writeUserData = (res) => {
-      var name = res.additionalUserInfo.profile.given_name;
-      var lastname = res.additionalUserInfo.profile.family_name;
-      var username = this.generateUsername(name, lastname);
-      var displayName = this.generateDisplayName(name, lastname);
-      var gender = this.convertGender(res.additionalUserInfo.profile.gender);
-      firebase.database().ref(`/users/${res.user.uid}`).set({
-        username: username,
-        displayName: displayName,
-        name: name,
-        lastname: lastname,
-        email: res.user.email,
-        photoUrl: res.user.photoURL || 'https://firebasestorage.googleapis.com/v0/b/social-crush.appspot.com/o/images%2Fuser_profile%2Fprofile_placeholder.jpg?alt=media&token=7efadeaa-d290-44aa-88aa-ec18a5181cd0',
-        creationTime: res.user.metadata.creationTime || 'null',
-        lastSignInTime: res.user.metadata.lastSignInTime || 'null',
-        verified_email: res.additionalUserInfo.profile.verified_email || 'null',
-        gender: gender || 'null',
-        id: res.additionalUserInfo.profile.id || 'null',
-        uid: res.user.uid || 'null'
-      }, error => {
-        if(error) { console.log(error); }
-        else { window.location.replace("/home"); }
-      });
-    }
-
     getAge = (dateString) => {
       var today = new Date();
       var birthDate = new Date(dateString);
@@ -171,39 +83,6 @@ class Signup extends Component {
         return false;
       else
         return true;
-    }
-
-    signUpWithEmail = (event) => {
-      event.preventDefault();
-      var userData = this.validateForm();
-      if(userData) {
-        firebase.auth().createUserWithEmailAndPassword(userData.email, userData.password)
-        .then(res => {
-          firebase.database().ref(`/users/${res.user.uid}`).set({
-            uid: res.user.uid,
-            displayName: `${userData.name}  ${userData.lastname}`,
-            name: userData.name,
-            lastname: userData.lastname,
-            email: res.user.email,
-            photoUrl : 'https://firebasestorage.googleapis.com/v0/b/social-crush.appspot.com/o/images%2Fuser_profile%2Fprofile_placeholder.jpg?alt=media&token=7efadeaa-d290-44aa-88aa-ec18a5181cd0',
-            username: userData.username, 
-            age: userData.age,
-            birthdate: userData.birthdate,
-            gender: userData.gender
-          }, error => {
-            if(error) {
-              console.log(error);
-            } else {
-              window.location.replace("/home");
-            }
-          });
-        })
-        .catch(error => {
-          this.showMessageError(error.code, error.message);
-        });
-      } else {
-        console.log(`UserData false - Signup.js 169: ${userData}`);
-      }
     }
 
     validateForm = () => {
@@ -349,9 +228,9 @@ class Signup extends Component {
             </div>
             {/* </div> */}
           </form>
-          <div className="boton">
+          {/* <div className="boton">
             <button onClick={this.signInWithGoogle} className="btn2">Ingresar con Google</button>
-          </div>
+          </div> */}
         </div>
       );
     }

@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import firebase from 'firebase';
+// import firebase from 'firebase';
 
 // Components
-import Header from '../../components/header/Header';
-import UserSidebar from '../../components/user_sidebar/UserSidebar';
-import CreatePost from '../../components/create_post/CreatePost';
-import Newsfeed from '../../components/newsfeed/NewsFeed';
-import ChatSidebar from '../../components/chat_sidebar/ChatSidebar';
-// import ChatWidget from '../../components/chat_widget/ChatWidget';
-import Footer from '../../components/footer/Footer';
+import Header from '../header/Header';
+import UserSidebar from '../user_sidebar/UserSidebar';
+import CreatePost from '../create_post/CreatePost';
+import Newsfeed from '../newsfeed/NewsFeed';
+import ChatSidebar from '../chat_sidebar/ChatSidebar';
+// import ChatWidget from '../chat_widget/ChatWidget';
+import Footer from '../footer/Footer';
 
 // Assets
 import './home.css';
@@ -32,8 +32,17 @@ class Home extends Component {
           }
         }
         this.addBootstrap4 = this.addBootstrap4.bind(this);
-        this.addBootstrap4();
         this.signOut = this.signOut.bind(this);
+    }
+
+    componentWillReceiveProps(nextProps) {
+      // this.setState({
+      //   user: nextProps.user
+      // });
+    }
+
+    componentDidMount() {
+      this.addBootstrap4();
     }
 
     openChat = (id) => {
@@ -41,7 +50,7 @@ class Home extends Component {
     }
 
     signOut = () => {
-        firebase.auth().signOut();
+        // firebase.auth().signOut();
         alert('Sesion Cerrada');
     }
 
@@ -51,34 +60,13 @@ class Home extends Component {
         document.querySelector("head").insertBefore(pre, document.querySelector("head").childNodes[0]);
     }
 
-    componentWillReceiveProps(nextProps) {
-      this.setState({
-        user: nextProps.user
-      });
-    }
-
-    componentDidMount() {
-      var postsRef = firebase.database().ref('posts/');
-      postsRef.on('value', snapshot => {
-        var posts = snapshot.val();
-        if(posts) {
-          this.setState({ posts });
-        }
-      });
-      
-      var usersRef = firebase.database().ref('users/');
-      usersRef.on('value', snapshot => {
-        var users = snapshot.val();
-        if(users) {
-          this.setState({ users });
-        }
-      });
-    }
-
     render() {
       var posts = this.state.posts;
       var sesion = window.localStorage.getItem('sesion');
-      sesion = (sesion === 'true') ? true : false;
+      // sesion = (sesion === 'true') ? true : false;
+      sesion = true;
+      var users = this.state.users || 'null';
+      var currentUserUid = this.state.user.uid || '';
       
       return (
         <div className="Home">
@@ -98,7 +86,7 @@ class Home extends Component {
                   </section>
                 </main>
               </section>
-              <ChatSidebar users={this.state.users || 'null'} openChat={this.openChat.bind(this)} currentUserUid={this.state.user.uid} />
+              <ChatSidebar users={users} openChat={this.openChat.bind(this)} currentUserUid={currentUserUid} />
               {/* { sesion ? (<ChatWidget chatId={this.state.chatId || ''} messages={this.state.messages || ''} currentUserUid={this.state.user.uid} />) : ("") } */}
             </div>
             <Footer />
