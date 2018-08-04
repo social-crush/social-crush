@@ -10,8 +10,9 @@ header .nav-content .iconos .navbar-nav {
     display: flex;
     flex-direction: row;
 }
-header .nav-content .iconos .navbar-nav li a{
-    padding: 15px;
+header .nav-content .iconos .navbar-nav .op-i{
+    margin-left: 15px;
+    margin-right: 15px;
 }
 .nav-content .iconos .icono{
     color: #777777;

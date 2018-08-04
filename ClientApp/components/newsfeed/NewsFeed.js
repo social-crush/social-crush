@@ -25,7 +25,7 @@ class Newsfeed extends Component {
     }
 
     componentDidMount() {
-      
+      console.log(this.props.data);
     }
 
     addBootstrap4 = () => {

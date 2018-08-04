@@ -208,23 +208,14 @@ class CreatePost extends Component {
       
       return (
         <div>
-          <div className="CreatePost" style={{width: '100%', margin: '0 auto', marginBottom: 30}}>
+          <div className="CreatePost" style={{width: '100%', marginBottom: 30}}>
             <div className="card publicacion-amor">
               <div className="card-body">
                 <label>Hacer Publicación</label>
               </div>
-              {/* <div className="destinatario">
-                <div className="tema"><h6>Para</h6></div>
-                <div className="destino"><input id="search-user-post" onChange={this.handleSearchUserPost} type="text" className="" autoComplete="off" onFocus={this.handleOnFocusPost} onBlur={this.handleOnBurPost} /></div>
-              </div> */}
               <div className="form-group">
                 <textarea id="textDeclaration" className="form-control text" placeholder="¿Qué quieres compartir?" defaultValue={""} />
-                {/* <div className="form-check">
-                  <input type="checkbox" className="check" id="isPublicCheck"/>
-                  <label className="form-check-label" htmlFor="isPublicCheck">Público</label>
-                  <input type="checkbox" className="check" id="isAnonimousCheck"/>
-                  <label className="form-check-label" htmlFor="isAnonimousCheck">Anónimo</label>
-                </div> */}
+               
               </div>
               {this.state.imageFile ? <div id="imageView"></div> : ""}
               <div className="publicar">

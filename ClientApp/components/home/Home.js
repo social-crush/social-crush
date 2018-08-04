@@ -72,21 +72,22 @@ class Home extends Component {
         <div className="Home">
             <Header />
             <div className="container main-content">
-              <UserSidebar postCount={this.state.user.postCount || '0'} postToMeCount={this.state.user.postToMeCount || '0'} visitedCount={this.state.user.visitedCount || '0'} photoUrl={this.state.user.photoUrl} displayName={this.state.user.displayName} username={this.state.user.username} />
-              <section className="center-content" style={{width: "100%", margin: "0px", padding: "0"}}>
-                <main className="main center-content">
-                  <section> 
-                    { sesion ? (<CreatePost uid={this.state.user.uid} photoUrl={this.state.user.photoUrl || 'https://firebasestorage.googleapis.com/v0/b/social-crush.appspot.com/o/images%2Fuser_profile%2Fprofile_placeholder.jpg?alt=media&token=7efadeaa-d290-44aa-88aa-ec18a5181cd0'} username={this.state.user.username} displayName={this.state.user.displayName} />) : ("") }
-                    <div>
-                      { posts ? ( 
-                        Object.keys(posts).map((post) => <Newsfeed key={post} id={post} data={posts[post]} currentUserUid={this.state.user.uid || 'null'} currentUserDisplayName={this.state.user.displayName || ''} />).reverse() 
-                        ) : ( "" )
-                      }
-                    </div>
-                  </section>
-                </main>
-              </section>
-              <ChatSidebar users={users} openChat={this.openChat.bind(this)} currentUserUid={currentUserUid} />
+                <section className="">
+                  <main className="main center-content">
+                    <section> 
+                      { sesion ? (<CreatePost uid={this.state.user.uid} photoUrl={this.state.user.photoUrl || 'https://firebasestorage.googleapis.com/v0/b/social-crush.appspot.com/o/images%2Fuser_profile%2Fprofile_placeholder.jpg?alt=media&token=7efadeaa-d290-44aa-88aa-ec18a5181cd0'} username={this.state.user.username} displayName={this.state.user.displayName} />) : ("") }
+                      <div>
+                        { posts ? ( 
+                          Object.keys(posts).map((post) => <Newsfeed key={post} id={post} data={posts[post]} currentUserUid={this.state.user.uid || 'null'} currentUserDisplayName={this.state.user.displayName || ''} />).reverse() 
+                          ) : ( "" )
+                        }
+                      </div>
+                    </section>
+                  </main>
+                </section>
+                <UserSidebar postCount={this.state.user.postCount || '0'} postToMeCount={this.state.user.postToMeCount || '0'} visitedCount={this.state.user.visitedCount || '0'} photoUrl={this.state.user.photoUrl} displayName={this.state.user.displayName} username={this.state.user.username} />
+              
+              {/* <ChatSidebar users={users} openChat={this.openChat.bind(this)} currentUserUid={currentUserUid} /> */}
               {/* { sesion ? (<ChatWidget chatId={this.state.chatId || ''} messages={this.state.messages || ''} currentUserUid={this.state.user.uid} />) : ("") } */}
             </div>
             <Footer />

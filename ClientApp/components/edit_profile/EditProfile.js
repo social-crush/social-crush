@@ -197,7 +197,7 @@ export default class EditProfile extends Component {
                                 <input id="editProfileLastname" type="text" className="form-control" placeholder={lastname} defaultValue={lastname} />
                             </div>
                         </div>
-                        <div className="form-group">
+                        {/* <div className="form-group">
                             <div className="info"><label>Nombre de usuario</label></div>
                             <div className="input-group entrada">
                                 <div className="input-group-prepend">
@@ -205,7 +205,7 @@ export default class EditProfile extends Component {
                                 </div>
                                 <input id="editProfileUsername" type="text" className="form-control" placeholder={username} defaultValue={username} />
                             </div>
-                        </div>
+                        </div> */}
                         <div className="form-group">
                             <div className="info"><label>Correo</label></div>
                             <div className="entrada">

@@ -116,13 +116,11 @@ class Header extends Component {
                 </div>
                 {/*Iconos del Menu*/}
                 <div className="iconos">
-                    <ul className="nav navbar-nav"> 
-                    <li data-toggle="tooltip" data-placement="bottom" title="Inicio"><a href="/home"><i className="fa fa-home icono" /></a></li>
-                    <li data-toggle="tooltip" data-placement="bottom" title="Chat"><a href="/chatting" {...this.state.uid ? '' : this.handleGoToChatting} ><i className="fa fa-heart icono" /></a></li>
-                    {/* <li><a href="/profile"><i className="fa fa-user icono" /></a></li> */}
-                    <li data-toggle="tooltip" data-placement="bottom" title="Perfil"><a href="/profile" {...this.state.uid ? '' : this.handleGoToProfile}><i className="fa fa-user icono" /></a></li>
-                    {/* <li><a href={this.state.isSignedIn ? '/profile' :  '/index'}><i className="fa fa-user icono" /></a></li> */}
-                    </ul>
+                    <div className="navbar-nav">
+                        <div className="op-i"><a href="/home" data-toggle="tooltip" data-placement="bottom" title="Inicio"><i className="fa fa-home icono" /></a></div>
+                        <div className="op-i"><a href="/chatting" data-toggle="tooltip" data-placement="bottom" title="Chat" {...this.state.uid ? '' : this.handleGoToChatting} ><i className="fa fa-heart icono" /></a></div>
+                        <div className="op-i"><a href="/profile" {...this.state.uid ? '' : this.handleGoToProfile} data-toggle="tooltip" data-placement="bottom" title="Perfil"><i className="fa fa-user icono" /></a></div>
+                    </div>
                 </div>
                 </div>
             </nav>

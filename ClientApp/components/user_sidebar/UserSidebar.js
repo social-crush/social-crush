@@ -26,7 +26,7 @@ class UserSidebar extends Component {
 
     render() {
       return (
-        <aside className="left-aside center-content">
+        <aside className="right-aside center-content">
           <section> 
             <div>
               <h4>{this.props.displayName || 'Invitado'}</h4> 
@@ -43,20 +43,11 @@ class UserSidebar extends Component {
               <footer className="footer-user-sidebar">
                 <hr className="hl" />
                 <div className="center-content">
-                  <div className="">
-                    <p>Vistas</p>
-                    <p>{this.props.visitedCount || '0'}</p>
-                  </div>
-                  <hr className="vl" />
                   <div>
-                    <p>Posts</p>
+                    <p>Posts realizadas:</p>
                     <p>{this.props.postCount || '0'}</p>
                   </div>
                   <hr className="vl" />
-                  <div>
-                    <p>Para mí</p>
-                    <p>{this.props.postToMeCount || '0'}</p>
-                  </div>
                 </div>
               </footer>
             </div>

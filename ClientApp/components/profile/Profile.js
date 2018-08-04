@@ -146,7 +146,7 @@ export default class Profile extends Component {
                         <div className="datos-conf">
                             <div className="nombre-usuario">
                                 <h2>{displayName}</h2>
-                                <p>{username}</p>
+                                {/* <p>{username}</p> */}
                             </div>
                             {   friend ? (
                                         ""
@@ -170,7 +170,7 @@ export default class Profile extends Component {
                                 )
                             }
                         </div>
-                        <div className="estadisticas">
+                        {/* <div className="estadisticas">
                             <div className="seguidos">
                                 <p>Vistas</p>
                                 <h5>{this.state.visitedCount || '0'}</h5>
@@ -183,18 +183,18 @@ export default class Profile extends Component {
                                 <p>Privados</p>
                                 <h5>{this.state.user.postToMeCount || '0'}</h5>
                             </div>
-                        </div>
+                        </div> */}
                     </section>
                 </div>
             <div className="content-de">
-                <div className="public-private">
+                {/* <div className="public-private">
                     <div className="declarations">
                         <p className="grow" onClick={this.showPost}>Publicaciones</p>
                     </div>
                     <div className="declarations">
                         <p className="grow" onClick={this.showPostToMe}>Declaraciones</p>
                     </div>
-                </div>
+                </div> */}
                 <div>
                     <div className="w3-animate-opacity ">
                     {   this.state.showPost ? (
