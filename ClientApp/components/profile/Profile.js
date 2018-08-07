@@ -13,7 +13,7 @@ export default class Profile extends Component {
         super(props);
         this.state = {
           showPost: true,
-          newsfeed: null,
+          posts: null,
           isVisited: false,
           visitedCount: null,
           nextProps: false,
@@ -40,6 +40,7 @@ export default class Profile extends Component {
         if(userId) {
             userId = userId.substring(1);
             this.loadUser(userId);
+            this.loadPosts(userId);
             if(this.state.isVisited === false) {
                 this.addOneMoreVisited(userId);
             }
@@ -60,7 +61,14 @@ export default class Profile extends Component {
     }
 
     loadPosts = (userId) => {      
-        alert('Load Posts');       
+        console.log(`Load Posts ${userId}`); 
+        fetch("api/NewsFeed/GetAllNewsFeeds")
+            .then(res => res.json())
+            .then(data => {
+                this.setState({ posts: data });
+                console.log("Data");
+            })
+            .catch(e => console.log(e));      
     }
 
     logout = () => {
@@ -90,6 +98,8 @@ export default class Profile extends Component {
         // var username = this.state.user.username ? `@${this.state.user.username}` : '@username';
         var currentUserId = this.state.user.uid || 'null';
         var currentUserDisplayName = `${this.state.user.name} ${this.state.user.lastname}` || '';
+
+        var isCurrentUser = true;
         
         return(
         <div className="Profile"> 
@@ -104,25 +114,25 @@ export default class Profile extends Component {
                                 <h2>{displayName}</h2>
                                 {/* <p>{username}</p> */}
                             </div>
-                            {   friend ? (
-                                        ""
+                            {   isCurrentUser ? (
+                                    <div className="editar">
+                                        <div><a className="btn-editar-op" href="/edit_profile">Editar Perfil</a></div>
+                                            <div className="btnOp-salir">
+                                                <button
+                                                    onClick={this.logout}
+                                                    className="btn-s"
+                                                    data-toggle="tooltip"
+                                                    data-placement="bottom" 
+                                                    title="Cerrar sesión"
+                                                    data-trigger="hover">
+                                                    {/* <i className="fas fa-sign-out-alt iconFontAwesome"></i> */}
+                                                    <i className="fas fa-power-off iconFontAwesome"></i>
+                                                    {/* <img src="https://firebasestorage.googleapis.com/v0/b/social-crush.appspot.com/o/images%2FbtnOptions.png?alt=media&token=e11bac00-b675-4283-a726-4b145df53e64"/> */}
+                                                </button>
+                                            </div> 
+                                    </div>
                                 ) : (
-                                <div className="editar">
-                                    <div><a className="btn-editar-op" href="/edit_profile">Editar Perfil</a></div>
-                                        <div className="btnOp-salir">
-                                            <button
-                                                onClick={this.logout}
-                                                className="btn-s"
-                                                data-toggle="tooltip"
-                                                data-placement="bottom" 
-                                                title="Cerrar sesión"
-                                                data-trigger="hover">
-                                                {/* <i className="fas fa-sign-out-alt iconFontAwesome"></i> */}
-                                                <i className="fas fa-power-off iconFontAwesome"></i>
-                                                {/* <img src="https://firebasestorage.googleapis.com/v0/b/social-crush.appspot.com/o/images%2FbtnOptions.png?alt=media&token=e11bac00-b675-4283-a726-4b145df53e64"/> */}
-                                            </button>
-                                        </div> 
-                                </div>
+                                    ""
                                 )
                             }
                         </div>
