@@ -93,6 +93,21 @@ namespace NewSite.Web
                 });
                 context.SaveChanges();
             }
+            
+
+            if (!context.Users.Any())
+            {
+                context.Users.AddRange(new List<User>()
+                {
+                    new User(){UserId = 1, Name = "Nombre", Lastname = "Apellido", PhotoUrl = "https://firebasestorage.googleapis.com/v0/b/social-crush.appspot.com/o/images%2Fuser_profile%2Fprofile_placeholder.jpg?alt=media&token=7efadeaa-d290-44aa-88aa-ec18a5181cd0", Email = "email@hotmail.com", Password = "password123", Gender = "Hombre", Hour = 15, Minute = 43, Day = 7, Month = 6, Year = 2018 },
+                    new User(){UserId = 2, Name = "Nombre", Lastname = "Apellido", PhotoUrl = "https://firebasestorage.googleapis.com/v0/b/social-crush.appspot.com/o/images%2Fuser_profile%2Fprofile_placeholder.jpg?alt=media&token=7efadeaa-d290-44aa-88aa-ec18a5181cd0", Email = "email@hotmail.com", Password = "password123", Gender = "Hombre", Hour = 15, Minute = 43, Day = 7, Month = 6, Year = 2018 },
+                    new User(){UserId = 3, Name = "Nombre", Lastname = "Apellido", PhotoUrl = "https://firebasestorage.googleapis.com/v0/b/social-crush.appspot.com/o/images%2Fuser_profile%2Fprofile_placeholder.jpg?alt=media&token=7efadeaa-d290-44aa-88aa-ec18a5181cd0", Email = "email@hotmail.com", Password = "password123", Gender = "Hombre", Hour = 15, Minute = 43, Day = 7, Month = 6, Year = 2018 },
+                    new User(){UserId = 4, Name = "Nombre", Lastname = "Apellido", PhotoUrl = "https://firebasestorage.googleapis.com/v0/b/social-crush.appspot.com/o/images%2Fuser_profile%2Fprofile_placeholder.jpg?alt=media&token=7efadeaa-d290-44aa-88aa-ec18a5181cd0", Email = "email@hotmail.com", Password = "password123", Gender = "Hombre", Hour = 15, Minute = 43, Day = 7, Month = 6, Year = 2018 },
+                    new User(){UserId = 5, Name = "Nombre", Lastname = "Apellido", PhotoUrl = "https://firebasestorage.googleapis.com/v0/b/social-crush.appspot.com/o/images%2Fuser_profile%2Fprofile_placeholder.jpg?alt=media&token=7efadeaa-d290-44aa-88aa-ec18a5181cd0", Email = "email@hotmail.com", Password = "password123", Gender = "Hombre", Hour = 15, Minute = 43, Day = 7, Month = 6, Year = 2018 },
+                    new User(){UserId = 6, Name = "Nombre", Lastname = "Apellido", PhotoUrl = "https://firebasestorage.googleapis.com/v0/b/social-crush.appspot.com/o/images%2Fuser_profile%2Fprofile_placeholder.jpg?alt=media&token=7efadeaa-d290-44aa-88aa-ec18a5181cd0", Email = "email@hotmail.com", Password = "password123", Gender = "Hombre", Hour = 15, Minute = 43, Day = 7, Month = 6, Year = 2018 }
+                });
+                context.SaveChanges();
+            }
 
 
         }
