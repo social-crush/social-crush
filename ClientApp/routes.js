@@ -20,6 +20,7 @@ export const routes = (
     <Route exact path="/home" component={Home} />
     <Route exact path="/chatting" component={Chatting} />
     <Route exact path="/profile" component={Profile} />
+    {/* <Route exact path="/friend/:id" component={Profile} /> */}
     <Route exact path="/edit_profile" component={EditProfile} />
     <Route exact path="/change_password" component={ChangePassword} />
     <Route exact path="/forgotpassword" component={ForgotPassword} />

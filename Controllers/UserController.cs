@@ -29,10 +29,25 @@ namespace NewSite.Web.Controllers
         // }
 
         [HttpGet("GetAllUsers", Name = "GetAllUsers")]  
-        public IEnumerable<User> GetAll()
+        public IEnumerable<User> GetAllUsers()
         {
-            // Obtener (cargar) mensajes.
             return _context.Users.ToList();
+        }
+
+        [HttpGet("GetUserById/{id}", Name = "GetUserById")]  
+        public IActionResult GetUserById(int id)
+        {
+            
+            // var user = context.Users.Include(x => x.Provincias).FirstOrDefault(x => x.Id == id);
+            var user = _context.Users.FirstOrDefault(x => x.UserId == id);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(user);
+            // return _context.Users.ToList();
         }
 
         // [HttpPost("Messages")]  

@@ -72,12 +72,12 @@ namespace NewSite.Web
             {
                 context.Messages.AddRange(new List<Message>()
                 {
-                    new Message(){MessageId = 1, Text = "Mensaje de prueba", Hour = 15, Minute = 43, Day = 7, Month = 6, Year = 2018 },
-                    new Message(){MessageId = 2, Text = "Mensaje de prueba 2", Hour = 16, Minute = 44, Day = 8, Month = 7, Year = 2018 },
-                    new Message(){MessageId = 3, Text = "Mensaje de prueba 3", Hour = 17, Minute = 45, Day = 9, Month = 8, Year = 2018 },
-                    new Message(){MessageId = 4, Text = "Mensaje de prueba 4", Hour = 18, Minute = 46, Day = 10, Month = 9, Year = 2018 },
-                    new Message(){MessageId = 5, Text = "Mensaje de prueba 5", Hour = 19, Minute = 47, Day = 11, Month = 10, Year = 2018 },
-                    new Message(){MessageId = 6, Text = "Mensaje de prueba 6", Hour = 20, Minute = 48, Day = 12, Month = 11, Year = 2018 }                 
+                    new Message(){MessageId = 1, UserId = 6, Text = "Mensaje de prueba", Hour = 15, Minute = 43, Day = 7, Month = 6, Year = 2018 },
+                    new Message(){MessageId = 2, UserId = 4, Text = "Mensaje de prueba 2", Hour = 16, Minute = 44, Day = 8, Month = 7, Year = 2018 },
+                    new Message(){MessageId = 3, UserId = 5, Text = "Mensaje de prueba 3", Hour = 17, Minute = 45, Day = 9, Month = 8, Year = 2018 },
+                    new Message(){MessageId = 4, UserId = 2, Text = "Mensaje de prueba 4", Hour = 18, Minute = 46, Day = 10, Month = 9, Year = 2018 },
+                    new Message(){MessageId = 5, UserId = 1, Text = "Mensaje de prueba 5", Hour = 19, Minute = 47, Day = 11, Month = 10, Year = 2018 },
+                    new Message(){MessageId = 6, UserId = 3, Text = "Mensaje de prueba 6", Hour = 20, Minute = 48, Day = 12, Month = 11, Year = 2018 }                 
                 });
                 context.SaveChanges();
             }
@@ -99,12 +99,13 @@ namespace NewSite.Web
             {
                 context.Users.AddRange(new List<User>()
                 {
-                    new User(){UserId = 1, Name = "Nombre", Lastname = "Apellido", PhotoUrl = "https://firebasestorage.googleapis.com/v0/b/social-crush.appspot.com/o/images%2Fuser_profile%2Fprofile_placeholder.jpg?alt=media&token=7efadeaa-d290-44aa-88aa-ec18a5181cd0", Email = "email@hotmail.com", Password = "password123", Gender = "Hombre", Hour = 15, Minute = 43, Day = 7, Month = 6, Year = 2018 },
-                    new User(){UserId = 2, Name = "Nombre", Lastname = "Apellido", PhotoUrl = "https://firebasestorage.googleapis.com/v0/b/social-crush.appspot.com/o/images%2Fuser_profile%2Fprofile_placeholder.jpg?alt=media&token=7efadeaa-d290-44aa-88aa-ec18a5181cd0", Email = "email@hotmail.com", Password = "password123", Gender = "Hombre", Hour = 15, Minute = 43, Day = 7, Month = 6, Year = 2018 },
-                    new User(){UserId = 3, Name = "Nombre", Lastname = "Apellido", PhotoUrl = "https://firebasestorage.googleapis.com/v0/b/social-crush.appspot.com/o/images%2Fuser_profile%2Fprofile_placeholder.jpg?alt=media&token=7efadeaa-d290-44aa-88aa-ec18a5181cd0", Email = "email@hotmail.com", Password = "password123", Gender = "Hombre", Hour = 15, Minute = 43, Day = 7, Month = 6, Year = 2018 },
-                    new User(){UserId = 4, Name = "Nombre", Lastname = "Apellido", PhotoUrl = "https://firebasestorage.googleapis.com/v0/b/social-crush.appspot.com/o/images%2Fuser_profile%2Fprofile_placeholder.jpg?alt=media&token=7efadeaa-d290-44aa-88aa-ec18a5181cd0", Email = "email@hotmail.com", Password = "password123", Gender = "Hombre", Hour = 15, Minute = 43, Day = 7, Month = 6, Year = 2018 },
-                    new User(){UserId = 5, Name = "Nombre", Lastname = "Apellido", PhotoUrl = "https://firebasestorage.googleapis.com/v0/b/social-crush.appspot.com/o/images%2Fuser_profile%2Fprofile_placeholder.jpg?alt=media&token=7efadeaa-d290-44aa-88aa-ec18a5181cd0", Email = "email@hotmail.com", Password = "password123", Gender = "Hombre", Hour = 15, Minute = 43, Day = 7, Month = 6, Year = 2018 },
-                    new User(){UserId = 6, Name = "Nombre", Lastname = "Apellido", PhotoUrl = "https://firebasestorage.googleapis.com/v0/b/social-crush.appspot.com/o/images%2Fuser_profile%2Fprofile_placeholder.jpg?alt=media&token=7efadeaa-d290-44aa-88aa-ec18a5181cd0", Email = "email@hotmail.com", Password = "password123", Gender = "Hombre", Hour = 15, Minute = 43, Day = 7, Month = 6, Year = 2018 }
+                    // new User(){UserId = 0, Name = "Nombre0", Lastname = "Apellido0", PhotoUrl = "https://firebasestorage.googleapis.com/v0/b/social-crush.appspot.com/o/images%2Fuser_profile%2Fprofile_placeholder.jpg?alt=media&token=7efadeaa-d290-44aa-88aa-ec18a5181cd0", Email = "email0@hotmail.com", Password = "password123", Gender = "Hombre", Hour = 15, Minute = 43, Day = 7, Month = 6, Year = 2018 },
+                    new User(){UserId = 1, Name = "Nombre1", Lastname = "Apellido1", PhotoUrl = "https://firebasestorage.googleapis.com/v0/b/social-crush.appspot.com/o/images%2Fuser_profile%2Fprofile_placeholder.jpg?alt=media&token=7efadeaa-d290-44aa-88aa-ec18a5181cd0", Email = "email1@hotmail.com", Password = "password123", Gender = "Hombre", Hour = 15, Minute = 43, Day = 7, Month = 6, Year = 2018 },
+                    new User(){UserId = 2, Name = "Nombre2", Lastname = "Apellido2", PhotoUrl = "https://www.jamf.com/jamf-nation/img/default-avatars/generic-user-purple.png", Email = "email2@hotmail.com", Password = "password123", Gender = "Hombre", Hour = 15, Minute = 43, Day = 7, Month = 6, Year = 2018 },
+                    new User(){UserId = 3, Name = "Nombre3", Lastname = "Apellido3", PhotoUrl = "http://www.etnahitech.com/new/wp-content/uploads/2017/09/businessman-1.png", Email = "email3@hotmail.com", Password = "password123", Gender = "Hombre", Hour = 15, Minute = 43, Day = 7, Month = 6, Year = 2018 },
+                    new User(){UserId = 4, Name = "Nombre4", Lastname = "Apellido4", PhotoUrl = "https://i1.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?fit=256%2C256&quality=100&ssl=1", Email = "email4@hotmail.com", Password = "password123", Gender = "Hombre", Hour = 15, Minute = 43, Day = 7, Month = 6, Year = 2018 },
+                    new User(){UserId = 5, Name = "Nombre5", Lastname = "Apellido5", PhotoUrl = "https://upload.wikimedia.org/wikipedia/commons/d/d3/User_Circle.png", Email = "email5@hotmail.com", Password = "password123", Gender = "Hombre", Hour = 15, Minute = 43, Day = 7, Month = 6, Year = 2018 },
+                    new User(){UserId = 6, Name = "Nombre6", Lastname = "Apellido6", PhotoUrl = "https://apps.odoo.com/apps/icon_image?module_id=37439", Email = "email6@hotmail.com", Password = "password123", Gender = "Hombre", Hour = 15, Minute = 43, Day = 7, Month = 6, Year = 2018 }
                 });
                 context.SaveChanges();
             }

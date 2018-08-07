@@ -13,29 +13,21 @@ export default class Profile extends Component {
         super(props);
         this.state = {
           showPost: true,
-          posts: null,
-          postsToMe: null,
-          friendUid: null,
+          newsfeed: null,
           isVisited: false,
           visitedCount: null,
           nextProps: false,
-        //   currentUserUid: null,
-        //   followers: null,
           user: {
-            displayName: null,
             photoUrl: null,
-            username: null,
             email: null,
             name: null,
             lastname: null,
             visitedCount: null,
-            uid: null
+            userId: null
           }
         }
         this.addBootstrap4 = this.addBootstrap4.bind(this);
         this.loadPosts = this.loadPosts.bind(this);
-        this.showPost = this.showPost.bind(this);
-        this.showPostToMe = this.showPostToMe.bind(this);
         this.logout = this.logout.bind(this);
         this.loadUser = this.loadUser.bind(this);
         this.addOneMoreVisited = this.addOneMoreVisited.bind(this);
@@ -43,65 +35,31 @@ export default class Profile extends Component {
 
     componentDidMount() {
         this.addBootstrap4();
-        if(this.state.nextProps === false) {
-            let uid = window.location.search;
-            if(uid) {
-                uid = uid.substring(1);
-                this.loadUser(uid);
-                this.loadPostsFriend(uid);
-                this.setState({ friendUid: uid });
-                if(this.state.isVisited === false) {
-                    this.addOneMoreVisited(uid);
-                }
-            } else {
-                // window.location.replace("/home");
-            }
-        }
-    }
 
-    componentWillReceiveProps(nextProps) {
-    //   this.setState({ user: nextProps.user });
-        this.setState({ nextProps: true });
-        if(nextProps.currentUserUid) {
-            this.setState({ currentUserUid: nextProps.currentUserUid });
-        }
-        
-        if(nextProps.uid) {
-            this.loadUser(nextProps.uid);
-            this.loadPosts(nextProps.uid);
+        let userId = window.location.search;
+        if(userId) {
+            userId = userId.substring(1);
+            this.loadUser(userId);
+            if(this.state.isVisited === false) {
+                this.addOneMoreVisited(userId);
+            }
         } else {
-            let uid = window.location.search;
-            if(uid) { 
-                uid = uid.substring(1);
-                this.loadUser(uid);
-                this.loadPostsFriend(uid);
-                this.setState({ friendUid: uid });
-                if(this.state.isVisited === false) {
-                    this.addOneMoreVisited(uid);
-                }
-            } else {
-                window.location.replace("/home");
-            }
+            // window.location.replace("/home");
         }
-    } 
-
-    showPost = () => {
-        this.setState({ showPost: true });
     }
 
-    showPostToMe = () => {
-        this.setState({ showPost: false });
+    loadUser = (userId) => {
+        console.log(`Load User ${userId}`);
+        if(userId) {
+            fetch(`api/User/GetUserById/${userId}`)
+                .then(res => res.json())
+                .then(data => {
+                    this.setState({ user: data });
+                }).catch(e => console.log(e));
+        }
     }
 
-    loadUser = (uid) => {
-        alert('Load User');
-    }
-
-    loadPostsFriend = (uid) => {
-        alert('Load Posts Friend');
-    }
-
-    loadPosts = (uid) => {      
+    loadPosts = (userId) => {      
         alert('Load Posts');       
     }
 
@@ -116,25 +74,23 @@ export default class Profile extends Component {
         document.querySelector("head").insertBefore(pre, document.querySelector("head").childNodes[0]);
     }
 
-    addOneMoreVisited = (friendUid) => {
-        friendUid = _.trim(friendUid);
-        alert('Add One More Visited');
+    addOneMoreVisited = (userId) => {
+        userId = _.trim(userId);
+        console.log(`Add One More Visited ${userId}`);
         this.setState({ isVisited: true });
     }
     
     render(){
         var posts = this.state.posts;
-        var postsToMe = this.state.postsToMe;
-        var friend = this.props.friend;
         var sesion = window.localStorage.getItem('sesion');
         sesion = (sesion === 'true') ? true : false;
 
-        var displayName = this.state.user.displayName || 'Username';
+        var displayName = `${this.state.user.name} ${this.state.user.lastname}` || 'Username';
         var photoUrl = this.state.user.photoUrl || "https://firebasestorage.googleapis.com/v0/b/social-crush.appspot.com/o/images%2Fuser_profile%2Fprofile_placeholder.jpg?alt=media&token=7efadeaa-d290-44aa-88aa-ec18a5181cd0";
-        var username = this.state.user.username ? `@${this.state.user.username}` : '@username';
-        var currentUserUid = this.state.user.uid || 'null';
-        var currentUserDisplayName = this.state.user.displayName || '';
-
+        // var username = this.state.user.username ? `@${this.state.user.username}` : '@username';
+        var currentUserId = this.state.user.uid || 'null';
+        var currentUserDisplayName = `${this.state.user.name} ${this.state.user.lastname}` || '';
+        
         return(
         <div className="Profile"> 
             <Header />
@@ -197,16 +153,7 @@ export default class Profile extends Component {
                 </div> */}
                 <div>
                     <div className="w3-animate-opacity ">
-                    {   this.state.showPost ? (
-                            posts ? ( 
-                                Object.keys(posts).map((post) => <Newsfeed key={post} id={post} data={posts[post]} currentUserUid={currentUserUid} currentUserDisplayName={currentUserDisplayName} />).reverse() 
-                            ) : ( "No hay publicaciones" )
-                        ) : (
-                            postsToMe ? ( 
-                                Object.keys(postsToMe).map((post) => <Newsfeed key={post} id={post} data={postsToMe[post]} currentUserUid={currentUserUid} currentUserDisplayName={currentUserDisplayName} />).reverse() 
-                            ) : ( "No hay declaraciones" )
-                        )
-                    }
+                    { posts ? ( Object.keys(posts).map((post) => <Newsfeed key={posts[post].newsFeedId} id={post} data={posts[post]} />).reverse() ) : ( "No hay publicaciones" ) }
                     </div>
                 </div>
             </div>

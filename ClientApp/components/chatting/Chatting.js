@@ -7,6 +7,7 @@ import './chatting.css';
 
 // Components
 import Header from '../header/Header';
+import Message from '../message/Message';
 
 class Chatting extends Component{
     state = { chat: null, users: null, newData: null };
@@ -36,7 +37,6 @@ class Chatting extends Component{
             .then(res => res.json())
             .then(data => {
                 this.setState({ users: data });
-                Object.keys(users).map((msg) => console.log(users[msg]));
             }).catch(e => console.log(e));
     }
 
@@ -118,20 +118,7 @@ class Chatting extends Component{
         if(chat != null){
     
           listItems = Object.keys(chat).map((msg) =>
-            <li key={chat[msg].messageId} className="left clearfix space">
-                <span className="chat-img pull-left">
-                    <img src={"https://firebasestorage.googleapis.com/v0/b/social-crush.appspot.com/o/images%2Fuser_profile%2Fprofile_placeholder.jpg?alt=media&token=7efadeaa-d290-44aa-88aa-ec18a5181cd0"} alt="" className="img-p" />
-                </span>
-                <div className="chat-body clearfix">
-                    <div className="header">
-                        <strong className="primary-font">{"Usuario"}</strong> 
-                        <small className="pull-right text-muted"><span className="glyphicon glyphicon-time" /> {`${chat[msg].day} de ${this.getMonth(chat[msg].month)} a las ${chat[msg].hour}:${chat[msg].minute}`}</small>
-                    </div>
-                    <p>
-                        {chat[msg].text}
-                    </p>
-                </div>
-            </li>
+            <Message key={chat[msg].messageId} message={chat[msg]} userId={chat[msg].userId} />
           );
         //   Object.keys(chat).map((msg) => console.log(chat[msg]));
 
@@ -147,26 +134,26 @@ class Chatting extends Component{
         
         if(users != null){
     
-            // listUsers = Object.keys(users).map((user) =>
-            // <div key={user} className="friend" style={{display: user == uid ? 'none' : ''}}>
-            //     <a href={`friend?${user}`} >
-            //         <div className="persons-imagen">
-            //             <img src={users[user].photoUrl || "https://firebasestorage.googleapis.com/v0/b/social-crush.appspot.com/o/images%2Fuser_profile%2Fprofile_placeholder.jpg?alt=media&token=7efadeaa-d290-44aa-88aa-ec18a5181cd0"} alt="" />
-            //         </div>
-            //         <div className="persons-nombres">
-            //             <p>{users[user].displayName || 'DisplayName'}</p>
-            //             <p>{users[user].username ? `@${users[user].username}` : '@username'}</p>
-            //         </div>
-            //     </a>
-            // </div>
-        //   );
-        console.log(users);
+            listUsers = Object.keys(users).map((user) =>
+            <div key={user} className="friend">
+                <a href={`friend?${user}`} >
+                    <div className="persons-imagen">
+                        <img src={users[user].photoUrl || "https://firebasestorage.googleapis.com/v0/b/social-crush.appspot.com/o/images%2Fuser_profile%2Fprofile_placeholder.jpg?alt=media&token=7efadeaa-d290-44aa-88aa-ec18a5181cd0"} alt="" />
+                    </div>
+                    <div className="persons-nombres">
+                        <p>{`${users[user].name} ${users[user].lastname}` || 'DisplayName'}</p>
+                        {/* <p>{users[user].username ? `@${users[user].username}` : '@username'}</p> */}
+                    </div>
+                </a>
+            </div>
+          );
+        // Object.keys(users).map((user) => console.log(users[user]));
     
         } else {
             listUsers = <h5 style={{textAlign: 'center'}}>Cargando usuarios...</h5>;
         }
 
-        return(
+        return (
             <div className="Chatting">
                 <Header />
                 <div className="c-contacts">
