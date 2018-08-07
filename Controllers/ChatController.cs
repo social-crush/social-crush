@@ -21,14 +21,14 @@ namespace NewSite.Web.Controllers
             _context = context;
         }
 
-        // [HttpGet("Messages")]  
+        // [HttpGet("GetAllMessages")]  
         // public JsonResult GetAll()
         // {
         //     // Obtener (cargar) mensajes.
         //     return Json(_context.Messages.ToList());
         // }
 
-        [HttpGet("Messages")]  
+        [HttpGet("GetAllMessages", Name = "GetAllMessages")]  
         public IEnumerable<Message> GetAll()
         {
             // Obtener (cargar) mensajes.
@@ -36,9 +36,17 @@ namespace NewSite.Web.Controllers
         }
 
         // [HttpPost("Messages")]  
-        // public void Save(Message message)
+        // public IActionResult Save(Message message)
         // {
         //     // Enviar (guardar) mensajes.
+        //     if (ModelState.IsValid)
+        //     {
+        //         context.Messages.Add(message);
+        //         context.SaveChanges();
+        //         return new CreatedAtRouteResult("GetAll", new { id = message.MessageId }, message);
+        //     }
+
+        //     return BadRequest(ModelState);
         // }
 
         // [HttpPut("Messages/{id}")]  

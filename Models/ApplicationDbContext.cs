@@ -17,5 +17,9 @@ namespace NewSite.Web.Models
         
         public DbSet<Message> Messages { get; set; }
         
+        public DbSet<User> Users { get; set; }
+        public DbSet<NewsFeed> NewsFeeds { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+        
     }
 }

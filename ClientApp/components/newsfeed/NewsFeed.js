@@ -25,7 +25,7 @@ class Newsfeed extends Component {
     }
 
     componentDidMount() {
-      console.log(this.props.data);
+      // console.log(this.props.data);
     }
 
     addBootstrap4 = () => {
@@ -35,7 +35,7 @@ class Newsfeed extends Component {
     }
 
     handleSendComment = (event) => {
-      var txtAreaComment = document.getElementById(`textareaComment${this.props.id}`);
+      var txtAreaComment = document.getElementById(`textareaComment${this.props.data.newsFeedId}`);
       var textAreaComment = _.trim(txtAreaComment.value); 
 
       if(this.props.currentUserUid !== 'null') {
@@ -108,16 +108,17 @@ class Newsfeed extends Component {
     }
 
     render() {
-      var month = this.getMonth(this.props.data.timestamp.month);
-      var photoUrl = this.props.data.isAnonimous == true ? "https://firebasestorage.googleapis.com/v0/b/social-crush.appspot.com/o/images%2Fuser_profile%2Fprofile_placeholder.jpg?alt=media&token=7efadeaa-d290-44aa-88aa-ec18a5181cd0" : this.props.data.fromPhotoUrl;
-      var displayName = this.props.data.isAnonimous == true ? "Anónimo" : this.props.data.fromDisplayName;
-      var comments = this.state.comments;
-      var day = this.props.data.timestamp.day;
-      var hour = this.props.data.timestamp.hour;
-      var minute = this.props.data.timestamp.minute;
-      var imageUrl = this.props.data.imageUrl;
+      var minute = this.props.data.minute || "";
+      var hour = this.props.data.hour || "";
+      var day = this.props.data.day || "";
       var text = this.props.data.text || "";
-      var id = this.props.id;
+      var month = this.getMonth(this.props.data.month) || "";
+      var imageUrl = this.props.data.imageUrl || "";
+
+      var photoUrl = this.props.data.photoUrl || "https://firebasestorage.googleapis.com/v0/b/social-crush.appspot.com/o/images%2Fuser_profile%2Fprofile_placeholder.jpg?alt=media&token=7efadeaa-d290-44aa-88aa-ec18a5181cd0";
+      var displayName = "Nombre Apellido" || "";
+      var comments = this.state.comments || "";
+      var id = this.props.data.newsFeedId;
       
       return (
         // <div data-aos="zoom-in">

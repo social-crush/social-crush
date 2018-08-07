@@ -77,14 +77,20 @@ namespace NewSite.Web
                     new Message(){MessageId = 3, Text = "Mensaje de prueba 3", Hour = 17, Minute = 45, Day = 9, Month = 8, Year = 2018 },
                     new Message(){MessageId = 4, Text = "Mensaje de prueba 4", Hour = 18, Minute = 46, Day = 10, Month = 9, Year = 2018 },
                     new Message(){MessageId = 5, Text = "Mensaje de prueba 5", Hour = 19, Minute = 47, Day = 11, Month = 10, Year = 2018 },
-                    new Message(){MessageId = 6, Text = "Mensaje de prueba 6", Hour = 20, Minute = 48, Day = 12, Month = 11, Year = 2018 }
-                    // new Pais(){Nombre = "México", Provincias = new List<Provincia>(){
-                    //         new Provincia(){Nombre = "Puebla"},
-                    //         new Provincia(){Nombre = "Queretaro"}
-                    //     } },
-                    // new Pais(){Nombre = "Argentina"}
+                    new Message(){MessageId = 6, Text = "Mensaje de prueba 6", Hour = 20, Minute = 48, Day = 12, Month = 11, Year = 2018 }                 
                 });
+                context.SaveChanges();
+            }
 
+
+            if (!context.NewsFeeds.Any())
+            {
+                context.NewsFeeds.AddRange(new List<NewsFeed>()
+                {
+                    new NewsFeed(){NewsFeedId = 1, UserId = 2, Text = "Post de prueba", ImageUrl = "https://www.lavanguardia.com/r/GODO/LV/p5/WebSite/2018/02/06/Recortada/img_evelasco_20180206-095609_imagenes_lv_terceros_eso1805a-kqeD-U44582134082tRH-992x558@LaVanguardia-Web.jpg", Hour = 15, Minute = 43, Day = 7, Month = 5, Year = 2018 },
+                    new NewsFeed(){NewsFeedId = 2, UserId = 1, Text = "Post de prueba 2", ImageUrl = "https://www.lavanguardia.com/r/GODO/LV/p5/WebSite/2018/02/06/Recortada/img_evelasco_20180206-095609_imagenes_lv_terceros_eso1805a-kqeD-U44582134082tRH-992x558@LaVanguardia-Web.jpg", Hour = 16, Minute = 44, Day = 8, Month = 6, Year = 2018 },
+                    new NewsFeed(){NewsFeedId = 3, UserId = 2, Text = "Post de prueba 3", ImageUrl = "https://www.lavanguardia.com/r/GODO/LV/p5/WebSite/2018/02/06/Recortada/img_evelasco_20180206-095609_imagenes_lv_terceros_eso1805a-kqeD-U44582134082tRH-992x558@LaVanguardia-Web.jpg", Hour = 17, Minute = 45, Day = 9, Month = 7, Year = 2018 },
+                });
                 context.SaveChanges();
             }
 

@@ -26,7 +26,7 @@ class Chatting extends Component{
     componentDidMount() {
         this.addBootstrap4();
         
-        fetch("api/Chat/Messages")
+        fetch("api/Chat/GetAllMessages")
             .then(res => res.json())
             .then(data => {
                 this.setState({ chat: data });
@@ -124,7 +124,7 @@ class Chatting extends Component{
                 <div className="chat-body clearfix">
                     <div className="header">
                         <strong className="primary-font">{"Usuario"}</strong> 
-                        <small className="pull-right text-muted"><span className="glyphicon glyphicon-time" />{`${chat[msg].day} de ${this.getMonth(chat[msg].month)} a las ${chat[msg].hour}:${chat[msg].minute}`}</small>
+                        <small className="pull-right text-muted"><span className="glyphicon glyphicon-time" /> {`${chat[msg].day} de ${this.getMonth(chat[msg].month)} a las ${chat[msg].hour}:${chat[msg].minute}`}</small>
                     </div>
                     <p>
                         {chat[msg].text}
@@ -134,14 +134,8 @@ class Chatting extends Component{
           );
         //   Object.keys(chat).map((msg) => console.log(chat[msg]));
 
-        //   for(var msg in chat) {
-        //     console.log(msg);
-        //     console.log(chat[msg]);
-        //     console.log(chat[msg].text);
-        //   }
-
-        // setTimeout(this.setScrollYtoBottom(), 300);
-        this.setScrollYtoBottom();
+        setTimeout(this.setScrollYtoBottom(), 300);
+        // this.setScrollYtoBottom();
     
         } else {
           listItems = <h1 style={{textAlign: 'center'}}>Cargando mensajes...</h1>;
