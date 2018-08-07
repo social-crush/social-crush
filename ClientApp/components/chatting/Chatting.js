@@ -9,23 +9,34 @@ import './chatting.css';
 import Header from '../header/Header';
 
 class Chatting extends Component{
+    state = { chat: null, users: null, newData: null };
+
     constructor(props){
-        super();
-        this.state = {
-            chat: null,
-            users: null,
-            newData: null
-        }
+        super(props);
+
         this.addBootstrap4 = this.addBootstrap4.bind(this);
         this.handleSubmitMessage = this.handleSubmitMessage.bind(this);
         this.getMonth = this.getMonth.bind(this);
         this.setScrollYtoBottom = this.setScrollYtoBottom.bind(this);
         this.handleSearchChat = this.handleSearchChat.bind(this);
         this.getUsers = this.getUsers.bind(this);
+
     }
 
     componentDidMount() {
         this.addBootstrap4();
+        
+        fetch("api/Chat/Messages")
+            .then(res => res.json())
+            .then(data => {
+                this.setState({ chat: data });
+            });
+
+        // fetch("api/User/User")
+        //     .then(res => res.json())
+        //     .then(data => {
+        //         this.setState({ chat: data });
+        //     });
     }
 
     addBootstrap4 = () => {
@@ -105,22 +116,29 @@ class Chatting extends Component{
         
         if(chat != null){
     
-          listItems = Object.keys(chat).map((message) =>
-            <li key={message} className="left clearfix space">
+          listItems = Object.keys(chat).map((msg) =>
+            <li key={chat[msg].messageId} className="left clearfix space">
                 <span className="chat-img pull-left">
-                    <img src={chat[message].photoUrl} alt="" className="img-p" />
+                    <img src={"https://firebasestorage.googleapis.com/v0/b/social-crush.appspot.com/o/images%2Fuser_profile%2Fprofile_placeholder.jpg?alt=media&token=7efadeaa-d290-44aa-88aa-ec18a5181cd0"} alt="" className="img-p" />
                 </span>
                 <div className="chat-body clearfix">
                     <div className="header">
-                        <strong className="primary-font">{chat[message].displayName}</strong> 
-                        <small className="pull-right text-muted"><span className="glyphicon glyphicon-time" />{`${chat[message].timestamp.day} de ${this.getMonth(chat[message].timestamp.month)} a las ${chat[message].timestamp.hour}:${chat[message].timestamp.minute}`}</small>
+                        <strong className="primary-font">{"Usuario"}</strong> 
+                        <small className="pull-right text-muted"><span className="glyphicon glyphicon-time" />{`${chat[msg].day} de ${this.getMonth(chat[msg].month)} a las ${chat[msg].hour}:${chat[msg].minute}`}</small>
                     </div>
                     <p>
-                        {chat[message].text}
+                        {chat[msg].text}
                     </p>
                 </div>
             </li>
           );
+        //   Object.keys(chat).map((msg) => console.log(chat[msg]));
+
+        //   for(var msg in chat) {
+        //     console.log(msg);
+        //     console.log(chat[msg]);
+        //     console.log(chat[msg].text);
+        //   }
 
         // setTimeout(this.setScrollYtoBottom(), 300);
         this.setScrollYtoBottom();

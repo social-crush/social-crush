@@ -21,19 +21,19 @@ namespace NewSite.Web.Controllers
             _context = context;
         }
 
-        [HttpGet("Messages")]  
-        public JsonResult GetAll()
-        {
-            // Obtener (cargar) mensajes.
-            return Json(_context.Messages.ToList());
-        }
-
         // [HttpGet("Messages")]  
-        // public IEnumerable<Message> GetAll()
+        // public JsonResult GetAll()
         // {
         //     // Obtener (cargar) mensajes.
-        //     return _context.Messages.ToList();
+        //     return Json(_context.Messages.ToList());
         // }
+
+        [HttpGet("Messages")]  
+        public IEnumerable<Message> GetAll()
+        {
+            // Obtener (cargar) mensajes.
+            return _context.Messages.ToList();
+        }
 
         // [HttpPost("Messages")]  
         // public void Save(Message message)
