@@ -89,8 +89,8 @@ class CreatePost extends Component {
         hour: new Date().getHours()
       };
 
-      if(!_.isEmpty(textDeclaration) || imageFile !== '') {
-        this.submitNewPost(postData, imageFile);
+      if(!_.isEmpty(textDeclaration)) {
+        this.submitNewPost(postData);
       } else {
         console.log('Debes suministrar algo para postear');
         alert('Debes suministrar algo para postear');
@@ -107,11 +107,11 @@ class CreatePost extends Component {
       //   .catch(e => console.log(e));
     }
 
-    submitNewPost = (postData, imageFile) => {
+    submitNewPost = (postData) => {
       var imageFileUploaded = document.getElementById('inputfile');
-      imageFileUploaded = imageFileUploaded.files[0];
+      // imageFileUploaded = imageFileUploaded.files[0];
     
-      fetch('api/Chat/CreateNewsFeed', {
+      fetch('api/NewsFeed/CreateNewsFeed', {
           method: 'POST',
           headers: {
             'Content-Type':'application/json'
