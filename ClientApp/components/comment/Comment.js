@@ -19,7 +19,7 @@ class Comment extends Component {
         return (
             <li className=""> 
                 {/* <a href={`profile?id=${this.state.props.userId}`} >{`${this.state.user.name} ${this.state.user.lastname}`}</a><span>{this.props.text}</span> */}
-                <a href={`profile?id=${this.state.props.userId}`} >{this.props.displayName}</a><span>{this.props.text}</span>
+                <a href={`profile?id=${this.props.userId}`} >{this.props.displayName}</a><span>{this.props.text}</span>
             </li>
         );
     }

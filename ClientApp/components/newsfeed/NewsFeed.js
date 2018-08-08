@@ -186,7 +186,7 @@ class Newsfeed extends Component {
                 {
                   comments ? (
                     Object.keys(comments).map((comment) => 
-                        <Comment key={comments[comment].commentId} text={comments[comment].text} userId={comments[comment].userId} displayName={comments[comment].displayName} />
+                        <Comment key={comments[comment].commentId} text={comments[comment].text} userId={comments[comment].userId} displayName={comments[comment].displayName || 'Username'} />
                         )
                     ) : (
                       ""
