@@ -23,22 +23,15 @@ class Newsfeed extends Component {
       this.goToFriend = this.goToFriend.bind(this);
     }
 
-    componentWillReceiveProps(nextProps) {
-      if(nextProps) {
-          var userId = nextProps.userId;
-          if(userId) {
-            fetch(`api/User/GetUserById/${userId}`)
-              .then(res => res.json())
-              .then(data => {
-                this.setState({ user: data });
-                console.log(data);
-              }).catch(e => console.log(e));
-          }
-      }
-    }
-
     componentDidMount() {
-      // console.log(this.props.data);
+      var userId = this.props.userId;
+      if(userId) {
+        fetch(`api/User/GetUserById/${userId}`)
+          .then(res => res.json())
+          .then(data => {
+            this.setState({ user: data });
+          }).catch(e => console.log(e));
+      }
     }
 
     addBootstrap4 = () => {

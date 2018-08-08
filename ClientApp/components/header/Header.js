@@ -47,8 +47,15 @@ class Header extends Component {
         if(!_.isEmpty(searchText)) {
             this.setState({ showResult: true });
 
-            // alert('Handle Search User');
-            console.log(searchText);
+            fetch(`api/User/GetUserByName/${searchText}`)
+            .then(res => res.json())
+            .then(data => {
+                if(data.length <= 0) {
+                    data = '¡No hay resultados!';
+                }
+                this.setState({ newData: data });
+            })
+            .catch(e => console.log(e));
             
         } else {
             newData = '¡No hay resultados!';
@@ -119,7 +126,8 @@ class Header extends Component {
                     <div className="navbar-nav">
                         <div className="op-i"><a href="/home" data-toggle="tooltip" data-placement="bottom" title="Inicio"><i className="fa fa-home icono" /></a></div>
                         <div className="op-i"><a href="/chatting" data-toggle="tooltip" data-placement="bottom" title="Chat" {...this.state.uid ? '' : this.handleGoToChatting} ><i className="fa fa-heart icono" /></a></div>
-                        <div className="op-i"><a href="/profile" {...this.state.uid ? '' : this.handleGoToProfile} data-toggle="tooltip" data-placement="bottom" title="Perfil"><i className="fa fa-user icono" /></a></div>
+                        <div className="op-i"><a href="/profile?id=1" data-toggle="tooltip" data-placement="bottom" title="Perfil"><i className="fa fa-user icono" /></a></div>
+                        {/* <div className="op-i"><a href="/profile?id=1" {...this.state.uid ? '' : this.handleGoToProfile} data-toggle="tooltip" data-placement="bottom" title="Perfil"><i className="fa fa-user icono" /></a></div> */}
                     </div>
                 </div>
                 </div>

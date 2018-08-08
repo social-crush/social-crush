@@ -17,9 +17,10 @@ class Signup extends Component {
       this.generateDisplayName = this.generateDisplayName.bind(this);
       this.calendar = this.calendar.bind(this);
       this.convertGender = this.convertGender.bind(this);
-      this.validateForm = this.validateForm.bind(this);
+      this.submitUser = this.submitUser.bind(this);
       this.getAge = this.getAge.bind(this);
       this.validateDate = this.validateDate.bind(this);
+      this.signUpWithEmail = this.signUpWithEmail.bind(this);
     }
 
     componentDidMount() {
@@ -85,10 +86,31 @@ class Signup extends Component {
         return true;
     }
 
-    validateForm = () => {
+    submitUser = (user) => {
+      if(user) {
+        // console.log(user);
+        fetch('api/User/SaveMessage', {
+          method: 'POST',
+          headers: {
+              'Content-Type':'application/json'
+          },
+          body: JSON.stringify(user)
+        })
+        .then(res => {
+          console.log(res);
+          alert('Registro exitoso!');
+          window.location.reload();
+        })
+        .catch(e => console.log(e));
+      }
+    }
+
+    signUpWithEmail = (e) => {
+      e.preventDefault();
+
       let name = _.trim(document.getElementById('name').value);
       let lastname = _.trim(document.getElementById('lastname').value);
-      let username = _.trim(document.getElementById('username').value);
+      // let username = _.trim(document.getElementById('username').value);
       let email = _.trim(document.getElementById('email').value);
       let password = _.trim(document.getElementById('password').value);
       let verifyPassword = _.trim(document.getElementById('verifyPassword').value);
@@ -97,30 +119,36 @@ class Signup extends Component {
       let selectGender = document.getElementById('selectGender');
       let gender = selectGender.options[selectGender.selectedIndex].value;
 
-      let age = this.getAge(birthdate);
+      let age = this.getAge(birthdate); 
 
       var userData = {
-        name: _.capitalize(_.camelCase(name)),
-        lastname: _.capitalize(_.camelCase(lastname)),
-        username: `@${username}`,
-        email: email,
-        password: password,
-        verifyPassword: verifyPassword,
-        birthdate: birthdate,
-        gender: gender,
-        age: age
+        "name": _.capitalize(_.camelCase(name)),
+        "lastname": _.capitalize(_.camelCase(lastname)),
+        // username: `@${username}`,
+        "email": email,
+        "password": password,
+        // "verifyPassword": verifyPassword,
+        "birthdate": birthdate,
+        "gender": gender,
+        "age": age,
+        "hour": new Date().getHours(),
+        "minute": new Date().getMinutes(),
+        "day": new Date().getDate(),
+        "month": new Date().getMonth(),
+        "year": new Date().getFullYear(),
+        "photoUrl": "null"
       }
 
       if(!_.isEmpty(name)) {
         if(!_.isEmpty(lastname)) {
-          if(!_.isEmpty(username)) {
+          // if(!_.isEmpty(username)) {
             if(!_.isEmpty(email)) {
               if(!_.isEmpty(password)) {
                 if(!_.isEmpty(password)) {
                   if(selectGender.selectedIndex !== 0) {
                     if(this.validateDate(birthdate)) { 
                       if(_.isEqual(password, verifyPassword)) {
-                        return userData;
+                        this.submitUser(userData);
                       } else {
                         console.log('Las contraseñas no coinciden');
                         alert('Las contraseñas no coinciden');
@@ -151,11 +179,11 @@ class Signup extends Component {
               alert('Debes escribir tu correo');
               return false;
             }
-          } else {
-            console.log('Debes escribir un nombre de usuario');
-            alert('Debes escribir un nombre de usuario');
-            return false;
-          }
+          // } else {
+          //   console.log('Debes escribir un nombre de usuario');
+          //   alert('Debes escribir un nombre de usuario');
+          //   return false;
+          // }
         } else {
           console.log('Debes escribir tu apellido');
           alert('Debes escribir tu apellido');
@@ -202,7 +230,7 @@ class Signup extends Component {
                 <input id="lastname" placeholder="Apellidos" type="text" className="validate" />	
             </div>
 
-            <input id="username" placeholder="Nombre de usuario" type="text" className="validate" />
+            {/* <input id="username" placeholder="Nombre de usuario" type="text" className="validate" /> */}
             <input id="email" placeholder="Correo" type="email" className="validate" />
 
             <div className="input-r">

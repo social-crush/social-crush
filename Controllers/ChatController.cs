@@ -31,23 +31,24 @@ namespace NewSite.Web.Controllers
         [HttpGet("GetAllMessages", Name = "GetAllMessages")]  
         public IEnumerable<Message> GetAll()
         {
-            // Obtener (cargar) mensajes.
             return _context.Messages.ToList();
         }
 
-        // [HttpPost("Messages")]  
-        // public IActionResult Save(Message message)
-        // {
-        //     // Enviar (guardar) mensajes.
-        //     if (ModelState.IsValid)
-        //     {
-        //         context.Messages.Add(message);
-        //         context.SaveChanges();
-        //         return new CreatedAtRouteResult("GetAll", new { id = message.MessageId }, message);
-        //     }
+        [HttpPost("SaveMessage", Name = "SaveMessage")]  
+        public IActionResult SaveMessage([FromBody] Message message)
+        {
+            // [FromBody] Message message
+            if (ModelState.IsValid)
+            {
+                
+                _context.Messages.Add(message);
+                _context.SaveChanges();
+                return Ok();
+                // return new CreatedAtRouteResult("GetAllMessages", new { }, message);
+            }
 
-        //     return BadRequest(ModelState);
-        // }
+            return BadRequest(ModelState);
+        }
 
         // [HttpPut("Messages/{id}")]  
         // public void Update(int id, Message message)

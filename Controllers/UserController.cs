@@ -34,12 +34,11 @@ namespace NewSite.Web.Controllers
             return _context.Users.ToList();
         }
 
-        [HttpGet("GetUserById/{id}", Name = "GetUserById")]  
-        public IActionResult GetUserById(int id)
+        [HttpGet("GetUserByEmailAndPassword/{email}/{password}", Name = "GetUserByEmailAndPassword")]  
+        public IActionResult GetUserByEmailAndPassword(string email, string password)
         {
-            
-            // var user = context.Users.Include(x => x.Provincias).FirstOrDefault(x => x.Id == id);
-            var user = _context.Users.FirstOrDefault(x => x.UserId == id);
+
+            var user = _context.Users.FirstOrDefault(x => x.Email == email);
 
             if (user == null)
             {
@@ -50,19 +49,41 @@ namespace NewSite.Web.Controllers
             // return _context.Users.ToList();
         }
 
-        // [HttpPost("Messages")]  
-        // public IActionResult Save(Message message)
-        // {
-        //     // Enviar (guardar) mensajes.
-        //     if (ModelState.IsValid)
-        //     {
-        //         context.Messages.Add(message);
-        //         context.SaveChanges();
-        //         return new CreatedAtRouteResult("GetAll", new { id = message.MessageId }, message);
-        //     }
+        [HttpGet("GetUserByName/{name}", Name = "GetUserByName")]  
+        public IActionResult GetUserByName(string name)
+        {
+            
+            // var user = _context.Users.Where(x => x.Name == name).ToList();
+            
+            // var query = "SELECT * FROM Users WHERE Name LIKE %"+name+"%";
+            // var query = "SELECT * FROM Users WHERE Name = "+name;
+            // var user = _context.Users.FromSql(query).ToList();
 
-        //     return BadRequest(ModelState);
-        // }
+            var user = _context.Users.Where(x => EF.Functions.Like(x.Name+" "+x.Lastname, "%"+name+"%")).ToList();
+
+            // var user = _context.Users.Where(x => EF.Functions.Like(x.Name, "%"+name+"%")).ToList();
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(user);
+            // return _context.Users.ToList();
+        }
+
+        [HttpPost("CreateNewUser", Name = "CreateNewUser")]  
+        public IActionResult CreateNewUser([FromBody] User user)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Users.Add(user);
+                _context.SaveChanges();
+                return Ok();
+            }
+
+            return BadRequest(ModelState);
+        }
 
         // [HttpPut("Messages/{id}")]  
         // public void Update(int id, Message message)

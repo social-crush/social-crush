@@ -14,15 +14,15 @@ class ResultWidget extends Component {
   // }
     
   setUserDataPost = (e) => {
-    if(this.props.setUserDataPost) {
-      e.preventDefault();
-      var value = e.currentTarget.id;
-      this.props.setUserDataPost(value);
-    }
-    if(this.props.getUid) {
-      var value = e.currentTarget.id;
-      this.props.getUid(value);
-    }
+    // if(this.props.setUserDataPost) {
+    //   e.preventDefault();
+    //   var value = e.currentTarget.id;
+    //   this.props.setUserDataPost(value);
+    // }
+    // if(this.props.getUid) {
+    //   var value = e.currentTarget.id;
+    //   this.props.getUid(value);
+    // }
   }
 
   render() {
@@ -32,15 +32,15 @@ class ResultWidget extends Component {
     if(users !== '¡No hay resultados!'){
 
       listItems = Object.keys(users).map((user) => 
-        <li key={user}>
+        <li key={users[user].userId}>
         {/*  data-toggle={this.props.setUserDataPost ? "" : "modal"} data-target="#myModal" */}
-          <a id={user} href={`friend?${users[user].uid}`} onClick={this.setUserDataPost}>
+          <a id={users[user].userId} href={`profile?id=${users[user].userId}`}>
             <div className="resultado-imagen">
               <img src={users[user].photoUrl || 'https://firebasestorage.googleapis.com/v0/b/social-crush.appspot.com/o/images%2Fuser_profile%2Fprofile_placeholder.jpg?alt=media&token=7efadeaa-d290-44aa-88aa-ec18a5181cd0'} alt="" />
             </div>
             <div className="resultado-nombres">
-              <p>{users[user].displayName || 'Username'}</p>
-              <p>{`@${users[user].username}` || '@username'}</p>
+              <p>{`${users[user].name} ${users[user].lastname}` || 'Username'}</p>
+              {/* <p>{`@${users[user].username}` || '@username'}</p> */}
             </div>
           </a>
         </li>

@@ -17,6 +17,7 @@ class Signin extends Component {
       this.signInWithEmail = this.signInWithEmail.bind(this);
       this.handleGuest = this.handleGuest.bind(this);
       this.generatePassword = this.generatePassword.bind(this);
+      this.submitSignIn = this.submitSignIn.bind(this);
     }
 
     generatePassword = () => {
@@ -35,6 +36,25 @@ class Signin extends Component {
       event.preventDefault();
     }
 
+    userDidSubmited = () => {
+      // window.localStorage.setItem("sesion", true);
+      // window.localStorage.setItem("userId", 1);
+    }
+
+    submitSignIn = (email, password) => {
+      if(email, password) {
+        console.log(`${email} ${password}`);
+        
+        fetch(`api/User/GetUserByEmailAndPassword/${email}/${password}`)
+            .then(res => res.json())
+            .then(data => {
+                // this.setState({ chat: data });
+                console.log(data);
+            })
+            .catch(e => console.log(e));
+      }
+    }
+
     signInWithEmail = (event) => {
       event.preventDefault();
       let email = document.getElementById('emailLogin').value;
@@ -42,7 +62,7 @@ class Signin extends Component {
       if(!_.isEmpty(_.trim(email))) {
         if(!_.isEmpty(_.trim(password))) {
           
-          alert('SigInWithEmail');
+          this.submitSignIn(email, password);
           
         } else {
           console.log('Debe proporcionar su contraseña');
@@ -75,11 +95,11 @@ class Signin extends Component {
                 <div className="boton">
                   <button onClick={this.signInWithEmail} className="btn-iniciar-sesion">Iniciar Sesion</button>
                 </div>
-                <div className="boton">
+                {/* <div className="boton">
                   <a href="/home" className="center-content">
                     <input type="button" onClick={this.handleGuest} defaultValue="Invitado" className="btn2" /> 
                   </a>
-                </div>
+                </div> */}
               </form>
               <div className="olvidar">
                 <div className="olvidar-2">

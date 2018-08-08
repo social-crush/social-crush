@@ -38,7 +38,7 @@ export default class Profile extends Component {
 
         let userId = window.location.search;
         if(userId) {
-            userId = userId.substring(1);
+            userId = userId.substring(4);
             this.loadUser(userId);
             this.loadPosts(userId);
             if(this.state.isVisited === false) {
@@ -56,6 +56,7 @@ export default class Profile extends Component {
                 .then(res => res.json())
                 .then(data => {
                     this.setState({ user: data });
+                    console.log(data);
                 }).catch(e => console.log(e));
         }
     }
@@ -66,7 +67,6 @@ export default class Profile extends Component {
             .then(res => res.json())
             .then(data => {
                 this.setState({ posts: data });
-                console.log(data);
             })
             .catch(e => console.log(e));      
     }
@@ -94,12 +94,13 @@ export default class Profile extends Component {
         sesion = (sesion === 'true') ? true : false;
 
         var displayName = `${this.state.user.name} ${this.state.user.lastname}` || 'Username';
+        var email = this.state.user.email || '';
         var photoUrl = this.state.user.photoUrl || "https://firebasestorage.googleapis.com/v0/b/social-crush.appspot.com/o/images%2Fuser_profile%2Fprofile_placeholder.jpg?alt=media&token=7efadeaa-d290-44aa-88aa-ec18a5181cd0";
         // var username = this.state.user.username ? `@${this.state.user.username}` : '@username';
         var currentUserId = this.state.user.uid || 'null';
         var currentUserDisplayName = `${this.state.user.name} ${this.state.user.lastname}` || '';
 
-        var isCurrentUser = true;
+        var isCurrentUser = false;
         
         return(
         <div className="Profile"> 
@@ -112,7 +113,7 @@ export default class Profile extends Component {
                         <div className="datos-conf">
                             <div className="nombre-usuario">
                                 <h2>{displayName}</h2>
-                                {/* <p>{username}</p> */}
+                                {/* <p>{email}</p> */}
                             </div>
                             {   isCurrentUser ? (
                                     <div className="editar">
@@ -163,7 +164,7 @@ export default class Profile extends Component {
                 </div> */}
                 <div>
                     <div className="w3-animate-opacity ">
-                    { posts ? ( Object.keys(posts).map((post) => <Newsfeed key={posts[post].newsFeedId} id={post} data={posts[post]} />).reverse() ) : ( "No hay publicaciones" ) }
+                    { posts ? ( Object.keys(posts).map((post) => <Newsfeed key={posts[post].newsFeedId} id={post} data={posts[post]} userId={posts[post].userId} />).reverse() ) : ( "No hay publicaciones" ) }
                     </div>
                 </div>
             </div>

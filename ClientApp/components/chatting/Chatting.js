@@ -21,6 +21,7 @@ class Chatting extends Component{
         this.setScrollYtoBottom = this.setScrollYtoBottom.bind(this);
         this.handleSearchChat = this.handleSearchChat.bind(this);
         this.getUsers = this.getUsers.bind(this);
+        this.onlyTry = this.onlyTry.bind(this);
 
     }
 
@@ -40,6 +41,16 @@ class Chatting extends Component{
             }).catch(e => console.log(e));
     }
 
+    onlyTry = () => {
+        fetch("api/Chat/GetAllMessages")
+            .then(res => res.json())
+            .then(data => {
+                this.setState({ chat: data });
+                console.log(data);
+            })
+            .catch(e => console.log(e));
+    }
+
     addBootstrap4 = () => {
         var pre = document.createElement('pre');
         pre.innerHTML = '<link rel="stylesheet"  href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">';	
@@ -51,12 +62,31 @@ class Chatting extends Component{
         var txtAreaMessage = document.getElementById('textAreaMessage');
         var textAreaMessage = _.trim(txtAreaMessage.value);
         if(!_.isEmpty(textAreaMessage)) {
-            var photoUrl = this.props.photoUrl || 'https://firebasestorage.googleapis.com/v0/b/social-crush.appspot.com/o/images%2Fuser_profile%2Fprofile_placeholder.jpg?alt=media&token=7efadeaa-d290-44aa-88aa-ec18a5181cd0';
-            var displayName = this.props.displayName || 'Desconocido';
 
-            alert('Handle Submit Message');
+            var message = {
+                // "messageId": 9,
+                "userId": 6,
+                "text": textAreaMessage,
+                "hour": new Date().getHours(),
+                "minute": new Date().getMinutes(),
+                "day": new Date().getDate(),
+                "month": new Date().getMonth(),
+                "year": new Date().getFullYear()
+            };
+            
+            fetch('api/Chat/SaveMessage', {
+                method: 'POST',
+                headers: {
+                    'Content-Type':'application/json'
+                },
+                body: JSON.stringify(message)
+            })
+            .then(res => {
+                this.onlyTry();
+            })
+            .catch(e => console.log(e));
 
-            // setInterval(this.setScrollYtoBottom(), 30);
+            setInterval(this.setScrollYtoBottom(), 300);
             
             // this.setTimeOut(this.setScrollYtoBottom(), 250);
 
@@ -83,8 +113,7 @@ class Chatting extends Component{
         
         if(_.isEmpty(searchUser)) {
             this.setState({ newData: this.state.users });
-            // alert('Handle Search User');
-            console.log(searchUser);
+
         } else {
             this.getUsers(searchUser);
         }
@@ -96,14 +125,16 @@ class Chatting extends Component{
         if(!_.isEmpty(searchText)) {
             this.setState({ showResult: true });
 
-            
-              
-            // var users = {};
-            //     for(var user in newData) {
-            //         if(user !== this.state.uid && _.toLower(newData[user].displayName).search(_.toLower(searchText)) !== -1) {
-            //             users[user] = newData[user];
-            //         }
-            //     }
+            fetch(`api/User/GetUserByName/${searchText}`)
+            .then(res => res.json())
+            .then(data => {
+                if(data.length <= 0) {
+                    data = null;
+                }
+                this.setState({ newData: data });
+            })
+            .catch(e => console.log(e));
+
         } else {
             newData = '¡No hay resultados!';
             this.setState({ newData });
@@ -112,7 +143,6 @@ class Chatting extends Component{
 
     render(){
         var chat = this.state.chat;
-        var uid = this.props.uid;
         var listItems = '';
         
         if(chat != null){
@@ -136,7 +166,7 @@ class Chatting extends Component{
     
             listUsers = Object.keys(users).map((user) =>
             <div key={user} className="friend">
-                <a href={`friend?${user}`} >
+                <a href={`profile?id=${users[user].userId}`} >
                     <div className="persons-imagen">
                         <img src={users[user].photoUrl || "https://firebasestorage.googleapis.com/v0/b/social-crush.appspot.com/o/images%2Fuser_profile%2Fprofile_placeholder.jpg?alt=media&token=7efadeaa-d290-44aa-88aa-ec18a5181cd0"} alt="" />
                     </div>
