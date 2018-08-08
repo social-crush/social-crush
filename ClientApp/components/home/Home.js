@@ -99,7 +99,7 @@ class Home extends Component {
                       { sesion ? (<CreatePost userId={this.state.userId} />) : ("") }
                       <div>
                         { posts ? ( 
-                          Object.keys(posts).map((post) => <Newsfeed key={posts[post].newsFeedId} id={post} data={posts[post]} newsFeedId={posts[post].newsFeedId} userId={posts[post].userId} currentUserId={this.state.userId} />).reverse() 
+                          Object.keys(posts).map((post) => <Newsfeed key={posts[post].newsFeedId} id={post} data={posts[post]} newsFeedId={posts[post].newsFeedId} userId={posts[post].userId} currentUserId={this.state.userId} displayName={`${this.state.user.name} ${this.state.user.lastname}`} />).reverse() 
                           ) : ( "" )
                         }
                       </div>

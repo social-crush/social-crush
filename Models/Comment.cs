@@ -19,6 +19,7 @@ namespace NewSite.Web.Models
         public int NewsFeedId { get; set; }
         public string Text { get; set; }
         public string ImageUrl { get; set; }
+        public string DisplayName { get; set; }
         public int Hour { get; set; }
         public int Minute { get; set; }
         public int Day { get; set; }

@@ -72,12 +72,14 @@ class Newsfeed extends Component {
     handleSendComment = (event) => {
       var txtAreaComment = document.getElementById(`textareaComment${this.props.newsFeedId}`);
       var textAreaComment = _.trim(txtAreaComment.value); 
+      var displayName = this.props.displayName || 'Username';
 
       if(!_.isEmpty(textAreaComment)) {
   
         var commentData = {
           userId: this.props.currentUserId,
           text: textAreaComment, 
+          displayName: displayName, 
           day: new Date().getDate(),
           month: new Date().getMonth(),
           year: new Date().getFullYear(),
@@ -184,7 +186,7 @@ class Newsfeed extends Component {
                 {
                   comments ? (
                     Object.keys(comments).map((comment) => 
-                        <Comment key={comments[comment].commentId} text={comments[comment].text} userId={comments[comment].userId} />
+                        <Comment key={comments[comment].commentId} text={comments[comment].text} userId={comments[comment].userId} displayName={comments[comment].displayName} />
                         )
                     ) : (
                       ""
