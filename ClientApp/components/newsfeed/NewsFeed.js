@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 // import firebase from 'firebase';
 import _ from 'lodash';
 
-// importing aos
-// import AOS from '../../../node_modules/aos';
+import Comment from '../comment/Comment';
 
 // Assets
 import './newsfeed.css';
@@ -11,7 +10,7 @@ import './newsfeed.css';
 // import '../../../node_modules/aos/dist/aos.css';
 
 class Newsfeed extends Component {
-    state = { user: { name: 'Username', lastname: '', photoUrl: null  }, datas: null, comments: null };
+    state = { user: { name: 'Username', lastname: '', photoUrl: null  }, data: { newsFeedId: null }, comments: null };
 
     constructor(props) { 
       super(props);
@@ -21,6 +20,7 @@ class Newsfeed extends Component {
       this.getMonth = this.getMonth.bind(this);
       this.handleFocusComment = this.handleFocusComment.bind(this);
       this.goToFriend = this.goToFriend.bind(this);
+      this.submitComment = this.submitComment.bind(this);
     }
 
     componentDidMount() {
@@ -32,6 +32,18 @@ class Newsfeed extends Component {
             this.setState({ user: data });
           }).catch(e => console.log(e));
       }
+
+      var newsFeedId = this.props.newsFeedId;
+      if(newsFeedId) {
+        fetch(`api/Comment/GetCommentsByNewsFeedId/${newsFeedId}`)
+          .then(res => res.json())
+          .then(data => {
+            if(data.length <= 0) {
+              data = null;
+            }
+            this.setState({ comments: data });
+          }).catch(e => console.log(e));
+      }
     }
 
     addBootstrap4 = () => {
@@ -40,40 +52,44 @@ class Newsfeed extends Component {
       document.querySelector("head").insertBefore(pre, document.querySelector("head").childNodes[0]);
     }
 
+    submitComment = (comment) => {
+      if(comment) {
+        fetch('api/Comment/CreateComment', {
+          method: 'POST',
+          headers: {
+              'Content-Type':'application/json'
+          },
+          body: JSON.stringify(comment)
+      })
+      .then(res => {
+          // this.onlyTry();
+          console.log(res);
+      })
+      .catch(e => console.log(e));
+      }
+    }
+
     handleSendComment = (event) => {
-      var txtAreaComment = document.getElementById(`textareaComment${this.props.data.newsFeedId}`);
+      var txtAreaComment = document.getElementById(`textareaComment${this.props.newsFeedId}`);
       var textAreaComment = _.trim(txtAreaComment.value); 
 
-      if(this.props.currentUserUid !== 'null') {
-        if(!_.isEmpty(textAreaComment)) {
-          var toUid = this.props.data.toUid; // Para actualizar el comentario en el destinatario
-          var fromUid = this.props.data.fromUid; // Para actualizar el comentario en el owner del post
-    
-          var commentData = {
-            uid: this.props.currentUserUid,
-            text: textAreaComment, 
-            // username: this.props.currentUserName,
-            displayName: this.props.currentUserDisplayName,
-            timestamp: {
-              day: new Date().getDate(),
-              month: new Date().getMonth(),
-              year: new Date().getFullYear(),
-              minute: new Date().getMinutes(),
-              hour: new Date().getHours()
-            }
-          }
-          
-          alert('CommentData');
-          console.log(commentData);
-
-        } else {
-          alert('Debes escribir algo para comentar.');
-          console.log('Debes escribir algo para comentar.');         
+      if(!_.isEmpty(textAreaComment)) {
+  
+        var commentData = {
+          userId: this.props.currentUserId,
+          text: textAreaComment, 
+          day: new Date().getDate(),
+          month: new Date().getMonth(),
+          year: new Date().getFullYear(),
+          minute: new Date().getMinutes(),
+          hour: new Date().getHours()
         }
+        
+        this.submitComment(commentData);
 
       } else {
-        alert('Debes iniciar sesión para hacer comentarios.');
-        console.log('Debes iniciar sesión para hacer comentarios.');
+        alert('Debes escribir algo para comentar.');
+        console.log('Debes escribir algo para comentar.');         
       }
 
       txtAreaComment.value = '';
@@ -88,8 +104,6 @@ class Newsfeed extends Component {
       event.preventDefault();
 
       if(this.props.currentUserUid !== 'null') {
-        var toUid = this.props.data.toUid; // Para actualizar el comentario en el destinatario
-        var fromUid = this.props.data.fromUid; // Para actualizar el comentario en el owner del post
 
         alert('Handle Like');
 
@@ -106,11 +120,11 @@ class Newsfeed extends Component {
     }
 
     goToFriend = (e) =>{
-      if(this.props.data.isAnonimous) {
-        e.preventDefault();
-      } else {
-        window.location.replace(`friend?${this.props.data.fromUid}`);
-      }
+      // if(this.props.data.isAnonimous) {
+      //   e.preventDefault();
+      // } else {
+      //   window.location.replace(`friend?${this.props.data.fromUid}`);
+      // }
     }
 
     render() {
@@ -124,7 +138,7 @@ class Newsfeed extends Component {
       var photoUrl = this.state.user.photoUrl || "https://firebasestorage.googleapis.com/v0/b/social-crush.appspot.com/o/images%2Fuser_profile%2Fprofile_placeholder.jpg?alt=media&token=7efadeaa-d290-44aa-88aa-ec18a5181cd0";
       var displayName = `${this.state.user.name} ${this.state.user.lastname}` || '';
       var comments = this.state.comments || "";
-      var id = this.props.data.newsFeedId;
+      var id = this.props.newsFeedId;
       
       return (
         // <div data-aos="zoom-in">
@@ -170,9 +184,7 @@ class Newsfeed extends Component {
                 {
                   comments ? (
                     Object.keys(comments).map((comment) => 
-                        <li key={comment} className=""> 
-                            <a href={`friend?${comments[comment].uid}`} >{comments[comment].displayName}</a><span>{comments[comment].text}</span>
-                        </li>
+                        <Comment key={comments[comment].commentId} text={comments[comment].text} userId={comments[comment].userId} />
                         )
                     ) : (
                       ""

@@ -136,7 +136,7 @@ class Signup extends Component {
         "day": new Date().getDate(),
         "month": new Date().getMonth(),
         "year": new Date().getFullYear(),
-        "photoUrl": "null"
+        "photoUrl": `http://www.placehold.it/100/55C1E7/fff&text=${_.capitalize(name.charAt(0))}`
       }
 
       if(!_.isEmpty(name)) {

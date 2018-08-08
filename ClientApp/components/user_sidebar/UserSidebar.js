@@ -31,16 +31,16 @@ class UserSidebar extends Component {
             <div>
               <h4>{this.props.displayName || 'Invitado'}</h4> 
               <div className="div-img-profile center-content">  {/* Contenedor de la Imagen de Perfil */}
-                <a href="#" onClick={this.handleOnClick} >
+                <a href={`/profile?id=${this.props.userId}`} >
                   <img alt="" className="img-profile-user" src={this.props.photoUrl  || 'https://firebasestorage.googleapis.com/v0/b/social-crush.appspot.com/o/images%2Fuser_profile%2Fprofile_placeholder.jpg?alt=media&token=7efadeaa-d290-44aa-88aa-ec18a5181cd0'} /> {/* Imagen */}
                 </a>
               </div>
               <div className="center-content">
-                <a className="username" href="#" onClick={this.handleOnClick}>
-                  <h5>{this.props.username ? `@${this.props.username}` : '@invitado'}</h5> 
+                <a className="username" href={`/profile?id=${this.props.userId}`}>
+                  <h5>{this.props.email || '@invitado'}</h5> 
                 </a>
               </div> 
-              <footer className="footer-user-sidebar">
+              {/* <footer className="footer-user-sidebar">
                 <hr className="hl" />
                 <div className="center-content">
                   <div>
@@ -49,7 +49,7 @@ class UserSidebar extends Component {
                   </div>
                   <hr className="vl" />
                 </div>
-              </footer>
+              </footer> */}
             </div>
           </section>
         </aside>

@@ -43,7 +43,7 @@ class Home extends Component {
         .then(res => res.json())
         .then(data => {
             // this.setState({ user: data });
-            console.log(data);
+            // console.log(data);
             this.setState({ user: data });
         })
         .catch(e => {
@@ -99,14 +99,14 @@ class Home extends Component {
                       { sesion ? (<CreatePost userId={this.state.userId} />) : ("") }
                       <div>
                         { posts ? ( 
-                          Object.keys(posts).map((post) => <Newsfeed key={posts[post].newsFeedId} id={post} data={posts[post]} userId={posts[post].userId} />).reverse() 
+                          Object.keys(posts).map((post) => <Newsfeed key={posts[post].newsFeedId} id={post} data={posts[post]} newsFeedId={posts[post].newsFeedId} userId={posts[post].userId} currentUserId={this.state.userId} />).reverse() 
                           ) : ( "" )
                         }
                       </div>
                     </section>
                   </main>
                 </section>
-                <UserSidebar postCount={this.state.user.postCount || '0'} displayName={`${this.state.user.name} ${this.state.user.lastname}`} photoUrl={this.state.user.photoUrl} />
+                <UserSidebar userId={this.state.userId} postCount={this.state.user.postCount || '0'} displayName={`${this.state.user.name} ${this.state.user.lastname}`} photoUrl={this.state.user.photoUrl} email={this.state.user.email} />
               
               {/* <ChatSidebar users={users} openChat={this.openChat.bind(this)} currentUserUid={currentUserUid} /> */}
               {/* { sesion ? (<ChatWidget chatId={this.state.chatId || ''} messages={this.state.messages || ''} currentUserUid={this.state.user.uid} />) : ("") } */}

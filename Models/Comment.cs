@@ -15,7 +15,7 @@ namespace NewSite.Web.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CommentId { get; set; }
 
-        public int UserId { get; set; }
+        public int UserId { get; set; } 
         public int NewsFeedId { get; set; }
         public string Text { get; set; }
         public string ImageUrl { get; set; }

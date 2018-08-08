@@ -37,10 +37,8 @@ namespace NewSite.Web.Controllers
         [HttpPost("SaveMessage", Name = "SaveMessage")]  
         public IActionResult SaveMessage([FromBody] Message message)
         {
-            // [FromBody] Message message
             if (ModelState.IsValid)
             {
-                
                 _context.Messages.Add(message);
                 _context.SaveChanges();
                 return Ok();

@@ -29,7 +29,7 @@ class CreatePost extends Component {
       this.handleOnBurPost = this.handleOnBurPost.bind(this);
       this.handleOnFocusPost = this.handleOnFocusPost.bind(this);
       this.clearForm = this.clearForm.bind(this);
-      this.increasePostCount = this.increasePostCount.bind(this);
+      this.onlyTry = this.onlyTry.bind(this);
       
       // this.getUserDataFromSearch = this.getUserDataFromSearch.bind(this);
     }
@@ -73,75 +73,58 @@ class CreatePost extends Component {
     }
 
     handleNewPost = () => {
-      var toUser = this.state.newPost;
-      var toDiplayName = toUser['toDiplayName'];
-      var toUsername = toUser['toUsername'];
-      var toUid = toUser['toUid'];
-
-      var uid = this.props.uid;
-      var displayName = this.props.displayName;
-      var username = this.props.username;
-      var photoUrl = this.props.photoUrl;
       var textDeclaration = document.getElementById('textDeclaration');
-      // var isPublicCheck = document.getElementById('isPublicCheck');
-      // var isAnonimousCheck = document.getElementById('isAnonimousCheck');
       var imageFile = document.getElementById('inputfile');
       textDeclaration = textDeclaration.value;
-      // isPublicCheck = isPublicCheck.checked;
-      // isAnonimousCheck = isAnonimousCheck.checked;
       imageFile = imageFile.value;
       
       var postData = {
-        fromUid: uid,
-        fromDisplayName: displayName, 
-        fromUsername: username, 
-        fromPhotoUrl: photoUrl,
-        toUid: toUid,
-        toUsername: toUsername,
-        toDiplayName: toDiplayName,
+        userId: this.props.userId,
         text: textDeclaration,
-        // isPublic: isPublicCheck,
-        // isAnonimous: isAnonimousCheck,
         imageUrl: null,
-        timestamp: {
-          day: new Date().getDate(),
-          month: new Date().getMonth(),
-          year: new Date().getFullYear(),
-          minute: new Date().getMinutes(),
-          hour: new Date().getHours()
-        }
+        day: new Date().getDate(),
+        month: new Date().getMonth(),
+        year: new Date().getFullYear(),
+        minute: new Date().getMinutes(),
+        hour: new Date().getHours()
       };
 
-      if(!_.isEmpty(_.trim(textDeclaration))) {
-        if((_.trim(textDeclaration)).length > 5) {
-          if(toUid) {
-            this.submitNewPost(postData, imageFile);
-          } else {
-            console.log('Debes elegir el destinatario.');
-            alert('Debes elegir el destinatario.');
-          }
-        } else {
-          console.log('La declaracion debe tener mas de 10 caracteres.');
-          alert('La declaracion debe tener mas de 10 caracteres.');
-        }
+      if(!_.isEmpty(textDeclaration) || imageFile !== '') {
+        this.submitNewPost(postData, imageFile);
       } else {
-        console.log('La declaracion es obligatoria.');
-        alert('La declaracion es obligatoria.');
+        console.log('Debes suministrar algo para postear');
+        alert('Debes suministrar algo para postear');
       }
+    }
 
+    onlyTry = () => {
+      // fetch("api/NewsFeed/GetAllNewsFeeds")
+      //   .then(res => res.json())
+      //   .then(data => {
+      //       this.setState({ newsFeeds: data });
+      //       console.log(data);
+      //   })
+      //   .catch(e => console.log(e));
     }
 
     submitNewPost = (postData, imageFile) => {
       var imageFileUploaded = document.getElementById('inputfile');
       imageFileUploaded = imageFileUploaded.files[0];
+    
+      fetch('api/Chat/CreateNewsFeed', {
+          method: 'POST',
+          headers: {
+            'Content-Type':'application/json'
+          },
+          body: JSON.stringify(postData)
+      })
+      .then(res => {
+        // console.log(res);
+        this.clearForm();
+        this.onlyTry();
+      })
+      .catch(e => console.log(e));
 
-      alert('Submit New Post');
-
-      this.clearForm();
-    }
-
-    increasePostCount = (fromUid, toUid) => {
-      alert('IncreasePostCount');
     }
 
     handleUploadImage = (evt) => {

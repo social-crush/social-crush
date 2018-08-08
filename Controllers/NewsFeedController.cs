@@ -31,7 +31,6 @@ namespace NewSite.Web.Controllers
         public IActionResult GetNewsFeedsByUserId(int id)
         {
             var newsFeeds = _context.NewsFeeds.Where(x => x.UserId == id).ToList();
-            // var newsFeeds = _context.NewsFeeds.
 
             if (newsFeeds == null)
             {
@@ -39,6 +38,20 @@ namespace NewSite.Web.Controllers
             }
 
             return Ok(newsFeeds);
+        }
+
+        [HttpPost("CreateNewsFeed", Name = "CreateNewsFeed")]  
+        public IActionResult CreateNewsFeed([FromBody] NewsFeed newsFeed)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.NewsFeeds.Add(newsFeed);
+                _context.SaveChanges();
+                return Ok();
+                // return new CreatedAtRouteResult("GetAllNewsFeeds", new { }, newsFeed);
+            }
+
+            return BadRequest(ModelState);
         }
 
     }
