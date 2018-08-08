@@ -34,11 +34,13 @@ namespace NewSite.Web.Controllers
             return _context.Users.ToList();
         }
 
-        [HttpGet("GetUserByEmailAndPassword/{email}", Name = "GetUserByEmailAndPassword")]  
-        public IActionResult GetUserByEmailAndPassword(string email)
+        [HttpGet("GetUserByEmailAndPassword/{email}/{password}", Name = "GetUserByEmailAndPassword")]  
+        public IActionResult GetUserByEmailAndPassword(string email, string password)
         {
 
-            var user = _context.Users.FirstOrDefault(x => x.Email == email);
+            var user = _context.Users.FirstOrDefault(x => x.Email == email && x.Password == password);
+            // var user = _context.Users.Where(x => x.Email == email).FirstOrDefault<User>();
+            // var user = _context.Users.Where(x => EF.Functions.Like(x.Email, "%"+email+"%")).FirstOrDefault<User>();
 
             if (user == null)
             {

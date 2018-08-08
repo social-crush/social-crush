@@ -20,19 +20,41 @@ class Home extends Component {
           chatId: null,
           users: null,
           posts: null,
+          userId: null,
           user: {
-            displayName: null,
+            userId: null,
             photoUrl: null,
             username: null,
             email: null,
             name: null,
-            lastname: null,
-            uid: null,
-            visitedCount: null
+            lastname: null
           }
         }
         this.addBootstrap4 = this.addBootstrap4.bind(this);
         this.signOut = this.signOut.bind(this);
+    }
+
+    componentWillMount() {
+      var sesion = window.localStorage.getItem("sesion");
+      var userId = window.localStorage.getItem("userId");
+      if(sesion && userId !== '') {
+        this.setState({ userId });
+        fetch(`api/User/GetUserById/${userId}`)
+        .then(res => res.json())
+        .then(data => {
+            // this.setState({ user: data });
+            console.log(data);
+            this.setState({ user: data });
+        })
+        .catch(e => {
+          console.log(e);
+          alert('Usuario o contraseña incorrecto');
+        });
+      } else {
+        window.localStorage.setItem("sesion", false);
+        window.localStorage.setItem("userId", '');
+        window.location.replace("/home");
+      }
     }
 
     componentDidMount() {
@@ -64,8 +86,7 @@ class Home extends Component {
     render() {
       var posts = this.state.posts;
       var sesion = window.localStorage.getItem('sesion');
-      // sesion = (sesion === 'true') ? true : false;
-      sesion = true;
+      sesion = (sesion === true) ? true : false;
       var users = this.state.users || 'null';
       var currentUserUid = this.state.user.uid || '';
       
@@ -76,7 +97,7 @@ class Home extends Component {
                 <section className="">
                   <main className="main center-content">
                     <section> 
-                      { sesion ? (<CreatePost uid={this.state.user.uid} photoUrl={this.state.user.photoUrl || 'https://firebasestorage.googleapis.com/v0/b/social-crush.appspot.com/o/images%2Fuser_profile%2Fprofile_placeholder.jpg?alt=media&token=7efadeaa-d290-44aa-88aa-ec18a5181cd0'} username={this.state.user.username} displayName={this.state.user.displayName} />) : ("") }
+                      { sesion ? (<CreatePost userId={this.state.userId} />) : ("") }
                       <div>
                         { posts ? ( 
                           Object.keys(posts).map((post) => <Newsfeed key={posts[post].newsFeedId} id={post} data={posts[post]} userId={posts[post].userId} />).reverse() 

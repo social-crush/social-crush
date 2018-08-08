@@ -36,22 +36,30 @@ class Signin extends Component {
       event.preventDefault();
     }
 
-    userDidSubmited = () => {
-      // window.localStorage.setItem("sesion", true);
-      // window.localStorage.setItem("userId", 1);
+    userDidSubmited = (user) => {
+      if(user) {
+        window.localStorage.setItem("sesion", true);
+        window.localStorage.setItem("userId", user.userId);
+        window.location.replace("/home");
+      }
     }
 
     submitSignIn = (email, password) => {
       if(email, password) {
-        console.log(`${email} ${password}`);
-        
-        fetch(`api/User/GetUserByEmailAndPassword/${email}`)
-            .then(res => res.json())
-            .then(data => {
-                // this.setState({ chat: data });
-                console.log(data);
-            })
-            .catch(e => console.log(e));
+        // console.log(`${email} ${password}`);
+
+        fetch(`api/User/GetUserByEmailAndPassword/${email}/${password}`)
+        .then(res => res.json())
+        .then(data => {
+            // this.setState({ user: data });
+            console.log(data);
+            this.userDidSubmited(data);
+        })
+        .catch(e => {
+          console.log(e);
+          alert('Usuario o contraseña incorrecto');
+        });
+
       }
     }
 
