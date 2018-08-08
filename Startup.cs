@@ -147,12 +147,12 @@ namespace NewSite.Web
             {
                 context.Comments.AddRange(new List<Comment>()
                 {
-                    new Comment(){Text = "Comentario 1", NewsFeedId = 1, UserId = 2, DisplayName = "Miguel Sanchez" Hour = 15, Minute = 43, Day = 7, Month = 6, Year = 2018 },
-                    new Comment(){Text = "Comentario 2", NewsFeedId = 2, UserId = 1, DisplayName = "Juan Reyes"  Hour = 16, Minute = 44, Day = 8, Month = 7, Year = 2018 },
-                    new Comment(){Text = "Comentario 3", NewsFeedId = 3, UserId = 3, DisplayName = "Rossmery Rosario"  Hour = 17, Minute = 45, Day = 9, Month = 8, Year = 2018 },
-                    new Comment(){Text = "Comentario 4", NewsFeedId = 2, UserId = 2, DisplayName = "Miguel Sanchez"  Hour = 18, Minute = 46, Day = 10, Month = 9, Year = 2018 },
-                    new Comment(){Text = "Comentario 5", NewsFeedId = 3, UserId = 4, DisplayName = "Laura Feliz"  Hour = 19, Minute = 47, Day = 11, Month = 10, Year = 2018 },
-                    new Comment(){Text = "Comentario 6", NewsFeedId = 1, UserId = 5, DisplayName = "Rosanna Cortorreal"  Hour = 20, Minute = 48, Day = 12, Month = 11, Year = 2018 }                 
+                    new Comment(){Text = "Comentario 1", NewsFeedId = 1, UserId = 2, DisplayName = "Miguel Sanchez", Hour = 15, Minute = 43, Day = 7, Month = 6, Year = 2018 },
+                    new Comment(){Text = "Comentario 2", NewsFeedId = 2, UserId = 1, DisplayName = "Juan Reyes", Hour = 16, Minute = 44, Day = 8, Month = 7, Year = 2018 },
+                    new Comment(){Text = "Comentario 3", NewsFeedId = 3, UserId = 3, DisplayName = "Rossmery Rosario", Hour = 17, Minute = 45, Day = 9, Month = 8, Year = 2018 },
+                    new Comment(){Text = "Comentario 4", NewsFeedId = 2, UserId = 2, DisplayName = "Miguel Sanchez", Hour = 18, Minute = 46, Day = 10, Month = 9, Year = 2018 },
+                    new Comment(){Text = "Comentario 5", NewsFeedId = 3, UserId = 4, DisplayName = "Laura Feliz", Hour = 19, Minute = 47, Day = 11, Month = 10, Year = 2018 },
+                    new Comment(){Text = "Comentario 6", NewsFeedId = 1, UserId = 5, DisplayName = "Rosanna Cortorreal", Hour = 20, Minute = 48, Day = 12, Month = 11, Year = 2018 }                 
                 });
                 context.SaveChanges();
             }
