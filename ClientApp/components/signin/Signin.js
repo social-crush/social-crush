@@ -38,7 +38,7 @@ class Signin extends Component {
 
     userDidSubmited = (user) => {
       if(user) {
-        window.localStorage.setItem("sesion", true);
+        window.localStorage.setItem("sesion", 'true');
         window.localStorage.setItem("userId", user.userId);
         window.location.replace("/home");
       }

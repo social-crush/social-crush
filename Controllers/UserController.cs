@@ -74,6 +74,20 @@ namespace NewSite.Web.Controllers
             // return _context.Users.ToList();
         }
 
+        [HttpGet("GetUserById/{id}", Name = "GetUserById")]  
+        public IActionResult GetUserById(int id)
+        {
+            var user = _context.Users.FirstOrDefault(x => x.UserId == id);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(user);
+            // return _context.Users.ToList();
+        }
+
         [HttpPost("CreateNewUser", Name = "CreateNewUser")]  
         public IActionResult CreateNewUser([FromBody] User user)
         {

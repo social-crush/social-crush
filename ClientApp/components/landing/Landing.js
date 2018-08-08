@@ -19,6 +19,17 @@ class Landing extends Component {
         this.addMaterialize = this.addMaterialize.bind(this);
     }
 
+    componentWillMount() {
+        var sesion = window.localStorage.getItem("sesion");
+        var userId = window.localStorage.getItem("userId");
+        if(sesion && userId !== '') {
+            window.location.replace("/home");
+        } else {
+            window.localStorage.setItem("sesion", false);
+            window.localStorage.setItem("userId", '');
+        }
+    }
+
     componentDidMount() {
         this.addMaterialize();
     }

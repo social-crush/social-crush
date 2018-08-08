@@ -37,7 +37,7 @@ class Home extends Component {
     componentWillMount() {
       var sesion = window.localStorage.getItem("sesion");
       var userId = window.localStorage.getItem("userId");
-      if(sesion && userId !== '') {
+      if(sesion === 'true' && userId !== '') {
         this.setState({ userId });
         fetch(`api/User/GetUserById/${userId}`)
         .then(res => res.json())
@@ -48,10 +48,9 @@ class Home extends Component {
         })
         .catch(e => {
           console.log(e);
-          alert('Usuario o contraseña incorrecto');
         });
       } else {
-        window.localStorage.setItem("sesion", false);
+        window.localStorage.setItem("sesion", 'false');
         window.localStorage.setItem("userId", '');
         window.location.replace("/home");
       }
@@ -86,7 +85,7 @@ class Home extends Component {
     render() {
       var posts = this.state.posts;
       var sesion = window.localStorage.getItem('sesion');
-      sesion = (sesion === true) ? true : false;
+      sesion = (sesion === 'true') ? true : false;
       var users = this.state.users || 'null';
       var currentUserUid = this.state.user.uid || '';
       
@@ -107,7 +106,7 @@ class Home extends Component {
                     </section>
                   </main>
                 </section>
-                <UserSidebar postCount={this.state.user.postCount || '0'} postToMeCount={this.state.user.postToMeCount || '0'} visitedCount={this.state.user.visitedCount || '0'} photoUrl={this.state.user.photoUrl} displayName={this.state.user.displayName} username={this.state.user.username} />
+                <UserSidebar postCount={this.state.user.postCount || '0'} displayName={`${this.state.user.name} ${this.state.user.lastname}`} photoUrl={this.state.user.photoUrl} />
               
               {/* <ChatSidebar users={users} openChat={this.openChat.bind(this)} currentUserUid={currentUserUid} /> */}
               {/* { sesion ? (<ChatWidget chatId={this.state.chatId || ''} messages={this.state.messages || ''} currentUserUid={this.state.user.uid} />) : ("") } */}
