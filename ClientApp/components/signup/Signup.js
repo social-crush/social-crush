@@ -111,7 +111,7 @@ class Signup extends Component {
       let name = _.trim(document.getElementById('name').value);
       let lastname = _.trim(document.getElementById('lastname').value);
       // let username = _.trim(document.getElementById('username').value);
-      let email = _.trim(document.getElementById('email').value);
+      let email = _.trim(_.toLower(document.getElementById('email').value));
       let password = _.trim(document.getElementById('password').value);
       let verifyPassword = _.trim(document.getElementById('verifyPassword').value);
 

@@ -45,7 +45,7 @@ class Signin extends Component {
       if(email, password) {
         console.log(`${email} ${password}`);
         
-        fetch(`api/User/GetUserByEmailAndPassword/${email}/${password}`)
+        fetch(`api/User/GetUserByEmailAndPassword/${email}`)
             .then(res => res.json())
             .then(data => {
                 // this.setState({ chat: data });
@@ -57,7 +57,7 @@ class Signin extends Component {
 
     signInWithEmail = (event) => {
       event.preventDefault();
-      let email = document.getElementById('emailLogin').value;
+      let email = _.toLower(document.getElementById('emailLogin').value);
       let password = document.getElementById('passwordLogin').value;
       if(!_.isEmpty(_.trim(email))) {
         if(!_.isEmpty(_.trim(password))) {

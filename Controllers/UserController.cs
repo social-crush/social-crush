@@ -34,8 +34,8 @@ namespace NewSite.Web.Controllers
             return _context.Users.ToList();
         }
 
-        [HttpGet("GetUserByEmailAndPassword/{email}/{password}", Name = "GetUserByEmailAndPassword")]  
-        public IActionResult GetUserByEmailAndPassword(string email, string password)
+        [HttpGet("GetUserByEmailAndPassword/{email}", Name = "GetUserByEmailAndPassword")]  
+        public IActionResult GetUserByEmailAndPassword(string email)
         {
 
             var user = _context.Users.FirstOrDefault(x => x.Email == email);
