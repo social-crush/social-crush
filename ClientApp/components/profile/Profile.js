@@ -62,11 +62,11 @@ export default class Profile extends Component {
 
     loadPosts = (userId) => {      
         console.log(`Load Posts ${userId}`); 
-        fetch("api/NewsFeed/GetAllNewsFeeds")
+        fetch(`api/NewsFeed/GetNewsFeedsByUserId/${userId}`)
             .then(res => res.json())
             .then(data => {
                 this.setState({ posts: data });
-                console.log("Data");
+                console.log(data);
             })
             .catch(e => console.log(e));      
     }

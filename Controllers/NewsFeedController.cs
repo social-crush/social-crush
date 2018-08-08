@@ -27,6 +27,20 @@ namespace NewSite.Web.Controllers
             return _context.NewsFeeds.ToList();
         }
 
+        [HttpGet("GetNewsFeedsByUserId/{id}", Name = "GetNewsFeedsByUserId")]  
+        public IActionResult GetNewsFeedsByUserId(int id)
+        {
+            var newsFeeds = _context.NewsFeeds.Where(x => x.UserId == id).ToList();
+            // var newsFeeds = _context.NewsFeeds.
+
+            if (newsFeeds == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(newsFeeds);
+        }
+
     }
 
 }

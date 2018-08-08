@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 class Message extends Component {
-    state = { user: { name: null, lastname: null, photoUrl: null  } };
+    state = { user: { name: 'Username', lastname: '', photoUrl: null  } };
 
     constructor(props) {
         super(props);

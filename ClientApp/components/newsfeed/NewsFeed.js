@@ -11,17 +11,30 @@ import './newsfeed.css';
 // import '../../../node_modules/aos/dist/aos.css';
 
 class Newsfeed extends Component {
-    constructor(props) {
+    state = { user: { name: 'Username', lastname: '', photoUrl: null  }, datas: null, comments: null };
+
+    constructor(props) { 
       super(props);
-      this.state = {
-          datas: null,
-          comments: null
-      }
+      
       this.handleSendComment = this.handleSendComment.bind(this);
       this.handleLike = this.handleLike.bind(this);
       this.getMonth = this.getMonth.bind(this);
       this.handleFocusComment = this.handleFocusComment.bind(this);
       this.goToFriend = this.goToFriend.bind(this);
+    }
+
+    componentWillReceiveProps(nextProps) {
+      if(nextProps) {
+          var userId = nextProps.userId;
+          if(userId) {
+            fetch(`api/User/GetUserById/${userId}`)
+              .then(res => res.json())
+              .then(data => {
+                this.setState({ user: data });
+                console.log(data);
+              }).catch(e => console.log(e));
+          }
+      }
     }
 
     componentDidMount() {
@@ -115,8 +128,8 @@ class Newsfeed extends Component {
       var month = this.getMonth(this.props.data.month) || "";
       var imageUrl = this.props.data.imageUrl || "";
 
-      var photoUrl = this.props.data.photoUrl || "https://firebasestorage.googleapis.com/v0/b/social-crush.appspot.com/o/images%2Fuser_profile%2Fprofile_placeholder.jpg?alt=media&token=7efadeaa-d290-44aa-88aa-ec18a5181cd0";
-      var displayName = "Nombre Apellido" || "";
+      var photoUrl = this.state.user.photoUrl || "https://firebasestorage.googleapis.com/v0/b/social-crush.appspot.com/o/images%2Fuser_profile%2Fprofile_placeholder.jpg?alt=media&token=7efadeaa-d290-44aa-88aa-ec18a5181cd0";
+      var displayName = `${this.state.user.name} ${this.state.user.lastname}` || '';
       var comments = this.state.comments || "";
       var id = this.props.data.newsFeedId;
       

@@ -35,12 +35,6 @@ class Home extends Component {
         this.signOut = this.signOut.bind(this);
     }
 
-    componentWillReceiveProps(nextProps) {
-      // this.setState({
-      //   user: nextProps.user
-      // });
-    }
-
     componentDidMount() {
       this.addBootstrap4();
         
@@ -48,7 +42,6 @@ class Home extends Component {
       .then(res => res.json())
       .then(data => {
           this.setState({ posts: data });
-          console.log("Data");
       })
       .catch(e => console.log(e));
     }
@@ -86,7 +79,7 @@ class Home extends Component {
                       { sesion ? (<CreatePost uid={this.state.user.uid} photoUrl={this.state.user.photoUrl || 'https://firebasestorage.googleapis.com/v0/b/social-crush.appspot.com/o/images%2Fuser_profile%2Fprofile_placeholder.jpg?alt=media&token=7efadeaa-d290-44aa-88aa-ec18a5181cd0'} username={this.state.user.username} displayName={this.state.user.displayName} />) : ("") }
                       <div>
                         { posts ? ( 
-                          Object.keys(posts).map((post) => <Newsfeed key={posts[post].newsFeedId} id={post} data={posts[post]} />).reverse() 
+                          Object.keys(posts).map((post) => <Newsfeed key={posts[post].newsFeedId} id={post} data={posts[post]} userId={posts[post].userId} />).reverse() 
                           ) : ( "" )
                         }
                       </div>
